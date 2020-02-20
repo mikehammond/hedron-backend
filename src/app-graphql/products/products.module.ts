@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ProductResolver } from './product/product.resolver';
+import { ProductsResolver } from './products.resolver';
 
 @Module({
-  providers: [ProductResolver],
+  providers: [ProductsResolver],
 })
 export class ProductsModule {}

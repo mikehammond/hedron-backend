@@ -8,7 +8,7 @@ import { AppGraphqlModule } from './app-graphql/app-graphql.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql'],
+      autoSchemaFile: './src/app-graphql/schema.gql',
       definitions: {
         path: './src/app-graphql/graphql.ts',
       },

@@ -5,16 +5,11 @@
  */
 
 /* tslint:disable */
-export interface IMutation {
-    addProduct(name?: string): Product | Promise<Product>;
-}
-
-export interface Product {
-    _id?: string;
-    name?: string;
-    email?: string;
+export interface ProductType {
+    _id: string;
+    name: string;
 }
 
 export interface IQuery {
-    products(): Product[] | Promise<Product[]>;
+    products(): ProductType[] | Promise<ProductType[]>;
 }

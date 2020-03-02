@@ -6,10 +6,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppGraphqlModule } from './app-graphql/app-graphql.module';
 
+const envFile = process.env.NODE_ENV || 'development';
+
 @Module({
   imports: [
     AppGraphqlModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: `.env.${envFile}`
+    }),
     MongooseModule.forRoot(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

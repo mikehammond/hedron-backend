@@ -12,7 +12,6 @@ export class ProductsResolver {
 
   @Query(() => [ProductType])
   async products(
-    @Context('verified') context: GqlContextType,
     @Args('filter') filter: ProductFilter
   ): Promise<ProductType[]> {
     return this.productsService.products(filter);

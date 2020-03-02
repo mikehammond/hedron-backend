@@ -39,3 +39,6 @@ yarn.lock
 
 # Env Files
 .env
+.env.development
+.env.test
+.env.production

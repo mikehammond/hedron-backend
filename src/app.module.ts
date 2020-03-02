@@ -11,9 +11,7 @@ const envFile = process.env.NODE_ENV || 'development';
 @Module({
   imports: [
     AppGraphqlModule,
-    ConfigModule.forRoot({
-      envFilePath: `.env.${envFile}`
-    }),
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

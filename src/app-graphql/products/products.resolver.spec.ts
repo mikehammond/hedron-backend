@@ -7,17 +7,13 @@ import { ProductsService } from './products.service';
 import { IBMDicoveryService } from '../../utils/services/ibm-discovery.service';
 import { ProductSchema } from './schemas/product.schema';
 
-const envFile = process.env.NODE_ENV || 'development';
-
 describe('ProductsResolver', () => {
   let resolver: ProductsResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        ConfigModule.forRoot({
-          envFilePath: `.env.${envFile}`
-        }),
+        ConfigModule.forRoot(),
         MongooseModule.forRoot(process.env.MONGO_URI, {
           useNewUrlParser: true,
           useUnifiedTopology: true,

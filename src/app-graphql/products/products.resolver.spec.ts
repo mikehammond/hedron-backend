@@ -9,9 +9,10 @@ import { ProductSchema } from './schemas/product.schema';
 
 describe('ProductsResolver', () => {
   let resolver: ProductsResolver;
+  let module: TestingModule
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot(),
         MongooseModule.forRoot(process.env.MONGO_URI, {
@@ -32,6 +33,10 @@ describe('ProductsResolver', () => {
     }).compile();
 
     resolver = module.get<ProductsResolver>(ProductsResolver);
+  });
+
+  afterAll(() => {
+    module.close();
   });
 
   it('should be defined', () => {

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
+import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -7,13 +8,13 @@ import { AppGraphqlModule } from './app-graphql/app-graphql.module';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({
-      autoSchemaFile: './src/app-graphql/schema.gql',
-      definitions: {
-        path: './src/app-graphql/graphql.ts',
-      },
-    }),
     AppGraphqlModule,
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,11 +3,30 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Mutation {
+  addProduct(product: ProductInput!): ProductType!
+  trashProduct(productId: String!): ProductType!
+  restoreProduct(productId: String!): ProductType!
+  deleteProduct(productId: String!): ProductType!
+}
+
+input ProductFilter {
+  trashed: Boolean!
+}
+
+input ProductInput {
+  name: String!
+  description: String!
+}
+
 type ProductType {
   _id: ID!
   name: String!
+  description: String!
+  ibmDiscoveryDocumentId: String!
+  trashed: Boolean!
 }
 
 type Query {
-  products: [ProductType!]!
+  products(filter: ProductFilter!): [ProductType!]!
 }

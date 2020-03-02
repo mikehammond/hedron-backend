@@ -35,8 +35,8 @@ describe('ProductsResolver', () => {
     resolver = module.get<ProductsResolver>(ProductsResolver);
   });
 
-  afterAll(() => {
-    module.close();
+  afterAll(async () => {
+    await module.close();
   });
 
   it('should be defined', () => {

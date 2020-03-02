@@ -16,8 +16,8 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  afterAll(() => {
-    app.close();
+  afterAll(async () => {
+    await app.close();
   });
 
   describe('root', () => {

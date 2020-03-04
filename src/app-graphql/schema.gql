@@ -3,30 +3,64 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input Attachement {
+  filename: String!
+  url: String!
+  mimetype: String!
+  size: Float!
+}
+
+type Attachment {
+  _id: String!
+  filename: String!
+  url: String!
+  mimetype: String!
+  size: Float!
+}
+
 type Mutation {
-  addProduct(product: ProductInput!): ProductType!
-  trashProduct(productId: String!): ProductType!
+  addProduct(uploads: [Upload!]!, product: ProductInput!): ProductType!
+  archiveProduct(productId: String!): ProductType!
   restoreProduct(productId: String!): ProductType!
   deleteProduct(productId: String!): ProductType!
 }
 
+input Plan {
+  name: String!
+  price: String!
+  details: String!
+}
+
 input ProductFilter {
-  trashed: Boolean!
+  archived: Boolean!
+  status: String!
 }
 
 input ProductInput {
   name: String!
   description: String!
+  pricing: [String!]!
+  devices: [String!]!
+  categories: [String!]!
+  plans: [Plan!]!
+  logo: Attachement!
+  attachments: [Attachement!]!
 }
 
 type ProductType {
   _id: ID!
+  userId: String!
   name: String!
   description: String!
   ibmDiscoveryDocumentId: String!
-  trashed: Boolean!
+  attachments: [Attachment!]!
+  status: String!
+  archived: Boolean!
 }
 
 type Query {
   products(filter: ProductFilter!): [ProductType!]!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

@@ -13,8 +13,8 @@ import { verifyJWT } from 'src/utils/helpers';
       },
       context: async ({ req }) => {
         try {
-          const verified = await verifyJWT(req.headers.authorization.split(' ')[1]);
-          return { verified };
+          const user = await verifyJWT(req.headers.authorization.split(' ')[1]);
+          return { user };
         } catch (error) {
           throw new UnauthorizedException();
         }

@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { ProductsResolver } from './products.resolver';
+import { ProductsController } from './products.controller';
 import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
   imports: [
-    SharedModule,
+    SharedModule
   ],
-  providers: [
-    ProductsResolver,
-  ],
+  controllers: [ProductsController]
 })
 export class ProductsModule {}

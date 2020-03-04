@@ -3,22 +3,22 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AppGraphqlModule } from './app-graphql/app-graphql.module';
-
-const envFile = process.env.NODE_ENV || 'development';
+import { AppRestModule } from './app-rest/app-rest.module';
 
 @Module({
   imports: [
-    AppGraphqlModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false
-    })
+      useFindAndModify: false,
+      useCreateIndex: true,
+    }),
+    AppGraphqlModule,
+    AppRestModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}

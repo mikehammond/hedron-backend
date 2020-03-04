@@ -5,7 +5,7 @@ import * as DiscoveryV1 from 'ibm-watson/discovery/v1'
 import { IamAuthenticator } from 'ibm-watson/auth'
 import { Buffer } from 'buffer';
 
-import { ProductInput } from '../../app-graphql/graphql'
+import { ProductInput } from '../../app-graphql/products/dto/product.input';
 
 @Injectable()
 export class IBMDicoveryService {
@@ -23,7 +23,7 @@ export class IBMDicoveryService {
     });
   }
 
-  addDocument(document: ProductInput) {    
+  addDocument(document: ProductInput) {
     return this.discoveryV1.addDocument({
       environmentId: this.configService.get<string>('WATSON_DISCOVERY_ENVIRONMENT_ID'),
       collectionId: this.configService.get<string>('WATSON_DISCOVERY_COLLECTION_ID'),

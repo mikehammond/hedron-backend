@@ -6,4 +6,4 @@ before_script:
 - npm install
 script:
 - npm run test
-- npm run test:e2e
+# - npm run test:e2e

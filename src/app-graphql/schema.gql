@@ -3,14 +3,14 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input Attachement {
+input Attachment {
   filename: String!
   url: String!
   mimetype: String!
   size: Float!
 }
 
-type Attachment {
+type AttachmentOutput {
   _id: String!
   filename: String!
   url: String!
@@ -28,12 +28,20 @@ type Mutation {
 input Plan {
   name: String!
   price: String!
-  details: String!
+  description: String!
+}
+
+type PlanOutput {
+  _id: String!
+  name: String!
+  price: String!
+  description: String!
 }
 
 input ProductFilter {
-  archived: Boolean!
-  status: String!
+  archived: Boolean
+  status: String
+  userId: String
 }
 
 input ProductInput {
@@ -45,20 +53,28 @@ input ProductInput {
   devices: [Selectable!]!
   categories: [Selectable!]!
   plans: [Plan!]!
-  logo: Attachement!
-  featured: Attachement!
-  attachments: [Attachement!]!
+  logo: Attachment!
+  featured: Attachment!
+  attachments: [Attachment!]!
 }
 
 type ProductType {
   _id: ID!
   userId: String!
-  name: String!
-  description: String!
   ibmDiscoveryDocumentId: String!
-  attachments: [Attachment!]!
   status: String!
   archived: Boolean!
+  name: String!
+  description: String!
+  values: [SelectableOutput!]!
+  features: [SelectableOutput!]!
+  pricing: [SelectableOutput!]!
+  devices: [SelectableOutput!]!
+  categories: [SelectableOutput!]!
+  plans: [PlanOutput!]!
+  logo: AttachmentOutput!
+  featured: AttachmentOutput!
+  attachments: [AttachmentOutput!]!
 }
 
 type Query {
@@ -66,6 +82,12 @@ type Query {
 }
 
 input Selectable {
+  label: String!
+  value: String!
+}
+
+type SelectableOutput {
+  _id: String!
   label: String!
   value: String!
 }

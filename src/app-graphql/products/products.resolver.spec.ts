@@ -52,19 +52,4 @@ describe('ProductsResolver', () => {
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
-
-  it('should get products by filters', async () => {
-    const products = await resolver.products(user, { archived: false, status: 'pending' });
-    expect(products.length).toBeGreaterThanOrEqual(0);
-  });
-
-  // it('should add product to database', async () => {
-  //   const product = await resolver.addProduct(user, {
-  //     name: "Test Product",
-  //     description: "Description of Test Product"
-  //   }, []);
-  //   expect(product).toBeDefined();
-  //   expect(product.name).toEqual("Test Product");
-  //   expect(product.description).toEqual("Description of Test Product");
-  // });
 });

@@ -6,7 +6,7 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface Attachement {
+export interface Attachment {
     filename: string;
     url: string;
     mimetype: string;
@@ -16,12 +16,13 @@ export interface Attachement {
 export interface Plan {
     name: string;
     price: string;
-    details: string;
+    description: string;
 }
 
 export interface ProductFilter {
-    archived: boolean;
-    status: string;
+    archived?: boolean;
+    status?: string;
+    userId?: string;
 }
 
 export interface ProductInput {
@@ -33,9 +34,9 @@ export interface ProductInput {
     devices: Selectable[];
     categories: Selectable[];
     plans: Plan[];
-    logo: Attachement;
-    featured: Attachement;
-    attachments: Attachement[];
+    logo: Attachment;
+    featured: Attachment;
+    attachments: Attachment[];
 }
 
 export interface Selectable {
@@ -43,7 +44,7 @@ export interface Selectable {
     value: string;
 }
 
-export interface Attachment {
+export interface AttachmentOutput {
     _id: string;
     filename: string;
     url: string;
@@ -58,17 +59,38 @@ export interface IMutation {
     deleteProduct(productId: string): ProductType | Promise<ProductType>;
 }
 
+export interface PlanOutput {
+    _id: string;
+    name: string;
+    price: string;
+    description: string;
+}
+
 export interface ProductType {
     _id: string;
     userId: string;
-    name: string;
-    description: string;
     ibmDiscoveryDocumentId: string;
-    attachments: Attachment[];
     status: string;
     archived: boolean;
+    name: string;
+    description: string;
+    values: SelectableOutput[];
+    features: SelectableOutput[];
+    pricing: SelectableOutput[];
+    devices: SelectableOutput[];
+    categories: SelectableOutput[];
+    plans: PlanOutput[];
+    logo: AttachmentOutput;
+    featured: AttachmentOutput;
+    attachments: AttachmentOutput[];
 }
 
 export interface IQuery {
     products(filter: ProductFilter): ProductType[] | Promise<ProductType[]>;
+}
+
+export interface SelectableOutput {
+    _id: string;
+    label: string;
+    value: string;
 }

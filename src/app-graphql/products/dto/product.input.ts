@@ -9,11 +9,11 @@ class Plan {
   readonly price: string;
   
   @Field()
-  readonly details: string;
+  readonly description: string;
 }
 
 @InputType()
-class Attachement {
+class Attachment {
   @Field()
   readonly filename: string;
   
@@ -62,22 +62,25 @@ export class ProductInput {
   @Field(type => [Plan])
   readonly plans: Plan[];
 
-  @Field(type => Attachement)
-  readonly logo: Attachement;
+  @Field(type => Attachment)
+  readonly logo: Attachment;
 
-  @Field(type => Attachement)
-  readonly featured: Attachement;
+  @Field(type => Attachment)
+  readonly featured: Attachment;
 
-  @Field(type => [Attachement])
-  readonly attachments: Attachement[];
+  @Field(type => [Attachment])
+  readonly attachments: Attachment[];
 }
 
 
 @InputType()
 export class ProductFilter {
-  @Field()
+  @Field({ nullable: true })
   readonly archived: boolean;
 
-  @Field()
+  @Field({ nullable: true })
   readonly status: string;
+
+  @Field({ nullable: true })
+  readonly userId: string;
 }

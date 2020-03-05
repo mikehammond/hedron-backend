@@ -10,7 +10,7 @@ const AttachmentSchema = new Schema({
 const PlanSchema = new Schema({
   name: { type: String, required: true },
   price: { type: String, required: true },
-  details: { type: String, required: true },
+  description: { type: String, required: true },
 });
 
 const SelectableSchema = new Schema({

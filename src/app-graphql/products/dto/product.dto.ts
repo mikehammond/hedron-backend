@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID } from 'type-graphql';
 
 @ObjectType()
-class Attachment {
+class AttachmentOutput {
   @Field()
   readonly _id: string;
 
@@ -19,6 +19,33 @@ class Attachment {
 }
 
 @ObjectType()
+class SelectableOutput {
+  @Field()
+  readonly _id: string;
+
+  @Field()
+  readonly label: string;
+
+  @Field()
+  readonly value: string;
+}
+
+@ObjectType()
+class PlanOutput {
+  @Field()
+  readonly _id: string;
+
+  @Field()
+  readonly name: string;
+
+  @Field()
+  readonly price: string;
+  
+  @Field()
+  readonly description: string;
+}
+
+@ObjectType()
 export class ProductType {
   @Field(type => ID)
   readonly _id: string;
@@ -27,20 +54,44 @@ export class ProductType {
   readonly userId: string;
 
   @Field()
-  readonly name: string;
-
-  @Field()
-  readonly description: string;
-
-  @Field()
   readonly ibmDiscoveryDocumentId: string;
-
-  @Field(type => [Attachment])
-  readonly attachments: Attachment[];
 
   @Field()
   readonly status: string;
   
   @Field()
   readonly archived: boolean;
+
+  @Field()
+  readonly name: string;
+
+  @Field()
+  readonly description: string;
+
+  @Field(type => [SelectableOutput])
+  readonly values: SelectableOutput[];
+
+  @Field(type => [SelectableOutput])
+  readonly features: SelectableOutput[];
+
+  @Field(type => [SelectableOutput])
+  readonly pricing: SelectableOutput[];
+
+  @Field(type => [SelectableOutput])
+  readonly devices: SelectableOutput[];
+
+  @Field(type => [SelectableOutput])
+  readonly categories: SelectableOutput[];
+
+  @Field(type => [PlanOutput])
+  readonly plans: PlanOutput[];
+
+  @Field(type => AttachmentOutput)
+  readonly logo: AttachmentOutput;
+
+  @Field(type => AttachmentOutput)
+  readonly featured: AttachmentOutput;
+
+  @Field(type => [AttachmentOutput])
+  readonly attachments: AttachmentOutput[];
 }

@@ -37,20 +37,59 @@ export class ProductsController {
     return this.productsService.products(request.query);
   }
 
-  @Post()
-  @UseGuards(AuthGuard)
-  @ApiBody({ type: ProductInput })
+  // @Post()
+  // @UseGuards(AuthGuard)
+  // @ApiBody({ type: ProductInput })
+  // @UseInterceptors(FileFieldsInterceptor([
+  //   { name: 'logo', maxCount: 1 },
+  //   { name: 'featured', maxCount: 1 },
+  //   { name: 'attachments' },
+  // ]))
+  // create(@Req() request, @UploadedFiles() files, @Body() productInput: ProductInput) {
+  //   if (!(request.user as IUser).permissions.includes('create:products')) {
+  //     throw new UnauthorizedException('You do not have the permission to create a product');
+  //   }
+    
+  //   const modifiedLogo = { ...files.logo[0], uuid: uuidv4() };
+  //   const modifiedFeatured = { ...files.featured[0], uuid: uuidv4() };
+  //   const modifiedAttachments = files.attachments.map(attachment => ({ ...attachment, uuid: uuidv4() }));
+
+  //   const { IBM_COS_ENDPOINT, IBM_COS_BUCKET_NAME } = process.env;
+  //   const featured = {
+  //     filename: modifiedFeatured.originalname,
+  //     url: `https://${IBM_COS_ENDPOINT}/${IBM_COS_BUCKET_NAME}/${modifiedFeatured.uuid}_${modifiedFeatured.originalname}`,
+  //     mimetype: modifiedFeatured.mimetype,
+  //     size: modifiedFeatured.size
+  //   }
+
+  //   const logo = {
+  //     filename: modifiedLogo.originalname,
+  //     url: `https://${IBM_COS_ENDPOINT}/${IBM_COS_BUCKET_NAME}/${modifiedLogo.uuid}_${modifiedLogo.originalname}`,
+  //     mimetype: modifiedLogo.mimetype,
+  //     size: modifiedLogo.size
+  //   }
+  //   const attachments = modifiedAttachments.map((file: IFile) => {
+  //     return {
+  //       filename: file.originalname,
+  //       url: `https://${IBM_COS_ENDPOINT}/${IBM_COS_BUCKET_NAME}/${file.uuid}_${file.originalname}`,
+  //       mimetype: file.mimetype,
+  //       size: file.size
+  //     }
+  //   })
+
+  //   return Promise.all([
+  //     this.ibmCloudObjectStorageService.addObjects([modifiedLogo, ...modifiedAttachments, modifiedFeatured]),
+  //     this.productsService.addProduct(request.user.sub, { ...productInput, attachments, logo, featured }),
+  //   ]);
+  // }
+
+  @Post('/uploads')
   @UseInterceptors(FileFieldsInterceptor([
     { name: 'logo', maxCount: 1 },
     { name: 'featured', maxCount: 1 },
     { name: 'attachments' },
   ]))
-  create(@Req() request, @UploadedFiles() files, @Body() productInput: ProductInput) {
-    console.log(files);
-    if (!(request.user as IUser).permissions.includes('create:products')) {
-      throw new UnauthorizedException('You do not have the permission to create a product');
-    }
-    
+  async upload(@UploadedFiles() files) {
     const modifiedLogo = { ...files.logo[0], uuid: uuidv4() };
     const modifiedFeatured = { ...files.featured[0], uuid: uuidv4() };
     const modifiedAttachments = files.attachments.map(attachment => ({ ...attachment, uuid: uuidv4() }));
@@ -78,9 +117,8 @@ export class ProductsController {
       }
     })
 
-    return Promise.all([
-      this.ibmCloudObjectStorageService.addObjects([modifiedLogo, ...modifiedAttachments, modifiedFeatured]),
-      this.productsService.addProduct(request.user.sub, { ...productInput, attachments, logo, featured }),
-    ]);
+    await this.ibmCloudObjectStorageService.addObjects([modifiedLogo, ...modifiedAttachments, modifiedFeatured]);
+
+    return { featured, logo, attachments };
   }
 }

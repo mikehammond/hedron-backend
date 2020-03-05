@@ -27,12 +27,20 @@ export interface ProductFilter {
 export interface ProductInput {
     name: string;
     description: string;
-    pricing: string[];
-    devices: string[];
-    categories: string[];
+    values: Selectable[];
+    features: Selectable[];
+    pricing: Selectable[];
+    devices: Selectable[];
+    categories: Selectable[];
     plans: Plan[];
     logo: Attachement;
+    featured: Attachement;
     attachments: Attachement[];
+}
+
+export interface Selectable {
+    label: string;
+    value: string;
 }
 
 export interface Attachment {
@@ -44,7 +52,7 @@ export interface Attachment {
 }
 
 export interface IMutation {
-    addProduct(uploads: Upload[], product: ProductInput): ProductType | Promise<ProductType>;
+    addProduct(product: ProductInput): ProductType | Promise<ProductType>;
     archiveProduct(productId: string): ProductType | Promise<ProductType>;
     restoreProduct(productId: string): ProductType | Promise<ProductType>;
     deleteProduct(productId: string): ProductType | Promise<ProductType>;
@@ -64,5 +72,3 @@ export interface ProductType {
 export interface IQuery {
     products(filter: ProductFilter): ProductType[] | Promise<ProductType[]>;
 }
-
-export type Upload = any;

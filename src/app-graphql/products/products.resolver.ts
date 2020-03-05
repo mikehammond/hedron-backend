@@ -1,6 +1,5 @@
 import { Resolver, Query, Mutation, Args, Context, GqlContextType } from '@nestjs/graphql';
 import { UnauthorizedException } from '@nestjs/common';
-import { GraphQLUpload, FileUpload } from 'graphql-upload';
 
 import { ProductType } from './dto/product.dto';
 import { ProductInput, ProductFilter } from './dto/product.input';
@@ -29,9 +28,7 @@ export class ProductsResolver {
   async addProduct(
     @Context('user') user: IUser,
     @Args('product') product: ProductInput,
-    @Args({name: 'uploads', type: () => [GraphQLUpload]}) uploads: [FileUpload]
   ): Promise<ProductType> {
-    console.log(uploads);
     if (!user.permissions.includes('create:products')) {
       throw new UnauthorizedException('You do not have the permission to create a product');
     }

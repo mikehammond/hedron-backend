@@ -28,36 +28,45 @@ class Attachement {
 }
 
 @InputType()
+class Selectable {
+  @Field()
+  readonly label: string;
+
+  @Field()
+  readonly value: string;
+}
+
+@InputType()
 export class ProductInput {
   @Field()
   readonly name: string;
 
-  @Field(type => Attachement)
-  readonly featured: Attachement;
-
   @Field()
   readonly description: string;
 
-  @Field(type => [String])
-  readonly values: string[];
+  @Field(type => [Selectable])
+  readonly values: Selectable[];
 
-  @Field(type => [String])
-  readonly features: string[];
+  @Field(type => [Selectable])
+  readonly features: Selectable[];
 
-  @Field(type => [String])
-  readonly pricing: string[];
+  @Field(type => [Selectable])
+  readonly pricing: Selectable[];
 
-  @Field(type => [String])
-  readonly devices: string[];
+  @Field(type => [Selectable])
+  readonly devices: Selectable[];
 
-  @Field(type => [String])
-  readonly categories: string[];
+  @Field(type => [Selectable])
+  readonly categories: Selectable[];
 
   @Field(type => [Plan])
   readonly plans: Plan[];
 
   @Field(type => Attachement)
   readonly logo: Attachement;
+
+  @Field(type => Attachement)
+  readonly featured: Attachement;
 
   @Field(type => [Attachement])
   readonly attachments: Attachement[];

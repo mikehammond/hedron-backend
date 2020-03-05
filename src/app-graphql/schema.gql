@@ -19,7 +19,7 @@ type Attachment {
 }
 
 type Mutation {
-  addProduct(uploads: [Upload!]!, product: ProductInput!): ProductType!
+  addProduct(product: ProductInput!): ProductType!
   archiveProduct(productId: String!): ProductType!
   restoreProduct(productId: String!): ProductType!
   deleteProduct(productId: String!): ProductType!
@@ -39,11 +39,14 @@ input ProductFilter {
 input ProductInput {
   name: String!
   description: String!
-  pricing: [String!]!
-  devices: [String!]!
-  categories: [String!]!
+  values: [Selectable!]!
+  features: [Selectable!]!
+  pricing: [Selectable!]!
+  devices: [Selectable!]!
+  categories: [Selectable!]!
   plans: [Plan!]!
   logo: Attachement!
+  featured: Attachement!
   attachments: [Attachement!]!
 }
 
@@ -62,5 +65,7 @@ type Query {
   products(filter: ProductFilter!): [ProductType!]!
 }
 
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
+input Selectable {
+  label: String!
+  value: String!
+}

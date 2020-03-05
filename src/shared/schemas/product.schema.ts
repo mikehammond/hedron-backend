@@ -13,6 +13,11 @@ const PlanSchema = new Schema({
   details: { type: String, required: true },
 });
 
+const SelectableSchema = new Schema({
+  label: { type: String, required: true },
+  value: { type: String, required: true },
+});
+
 export const ReviewSchema = new Schema({
   userId: { type: String, required: true },
   productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
@@ -32,14 +37,14 @@ export const ProductSchema = new Schema({
   status: { type: String, default: 'pending', enum: ['pending', 'approved', 'denied'] },
   archived: { type: Boolean, default: false },
   name: { type: String, required: true, unique: true },
-  featured: AttachmentSchema,
   description: { type: String, required: true },
-  values: [{ type: String, required: true }],
-  features: [{ type: String, required: true }],
-  pricing: [{ type: String, required: true }],
-  devices: [{ type: String, required: true }],
-  categories: [{ type: String, required: true }],
+  values: [SelectableSchema],
+  features: [SelectableSchema],
+  pricing: [SelectableSchema],
+  devices: [SelectableSchema],
+  categories: [SelectableSchema],
   plans: [PlanSchema],
   logo: AttachmentSchema,
+  featured: AttachmentSchema,
   attachments: [AttachmentSchema],
 });

@@ -6,6 +6,7 @@ import { IamAuthenticator } from 'ibm-watson/auth'
 import { Buffer } from 'buffer';
 
 import { ProductInput } from '../../app-graphql/products/dto/product.input';
+import { SearchQueryInput } from 'src/app-rest/products/dto/product.input';
 
 @Injectable()
 export class IBMDicoveryService {
@@ -20,6 +21,16 @@ export class IBMDicoveryService {
         apikey: this.configService.get<string>('WATSON_DISCOVERY_API_KEY')
       }),
       serviceUrl: this.configService.get<string>('WATSON_DISCOVERY_SERVICE_URL')
+    });
+  }
+
+  queryCollection(query: SearchQueryInput) {
+    return this.discoveryV1.query({
+      environmentId: this.configService.get<string>('WATSON_DISCOVERY_ENVIRONMENT_ID'),
+      collectionId: this.configService.get<string>('WATSON_DISCOVERY_COLLECTION_ID'),
+      query: query.searchPhrase,
+      naturalLanguageQuery: query.searchPhrase,
+      filter: query.searchPhrase
     });
   }
 

@@ -2,7 +2,7 @@ import { Module, UnauthorizedException } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 
 import { ProductsModule } from './products/products.module';
-import { verifyJWT } from 'src/utils/helpers';
+import { verifyJWT } from '../utils/helpers';
 
 @Module({
   imports: [

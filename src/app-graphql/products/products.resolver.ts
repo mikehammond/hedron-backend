@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Context, GqlContextType } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { UnauthorizedException } from '@nestjs/common';
 
 import { ProductType } from './dto/product.dto';

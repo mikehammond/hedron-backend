@@ -6,14 +6,14 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface Attachment {
+export interface AttachmentInput {
     filename: string;
     url: string;
     mimetype: string;
     size: number;
 }
 
-export interface Plan {
+export interface PlanInput {
     name: string;
     price: string;
     description: string;
@@ -28,23 +28,23 @@ export interface ProductFilter {
 export interface ProductInput {
     name: string;
     description: string;
-    values: Selectable[];
-    features: Selectable[];
-    pricing: Selectable[];
-    devices: Selectable[];
-    categories: Selectable[];
-    plans: Plan[];
-    logo: Attachment;
-    featured: Attachment;
-    attachments: Attachment[];
+    values: SelectableInput[];
+    features: SelectableInput[];
+    pricing: SelectableInput[];
+    devices: SelectableInput[];
+    categories: SelectableInput[];
+    plans: PlanInput[];
+    logo: AttachmentInput;
+    featured: AttachmentInput;
+    attachments: AttachmentInput[];
 }
 
-export interface Selectable {
+export interface SelectableInput {
     label: string;
     value: string;
 }
 
-export interface AttachmentOutput {
+export interface AttachmentType {
     _id: string;
     filename: string;
     url: string;
@@ -59,7 +59,7 @@ export interface IMutation {
     deleteProduct(productId: string): ProductType | Promise<ProductType>;
 }
 
-export interface PlanOutput {
+export interface PlanType {
     _id: string;
     name: string;
     price: string;
@@ -74,22 +74,22 @@ export interface ProductType {
     archived: boolean;
     name: string;
     description: string;
-    values: SelectableOutput[];
-    features: SelectableOutput[];
-    pricing: SelectableOutput[];
-    devices: SelectableOutput[];
-    categories: SelectableOutput[];
-    plans: PlanOutput[];
-    logo: AttachmentOutput;
-    featured: AttachmentOutput;
-    attachments: AttachmentOutput[];
+    values: SelectableType[];
+    features: SelectableType[];
+    pricing: SelectableType[];
+    devices: SelectableType[];
+    categories: SelectableType[];
+    plans: PlanType[];
+    logo: AttachmentType;
+    featured: AttachmentType;
+    attachments: AttachmentType[];
 }
 
 export interface IQuery {
     products(filter: ProductFilter): ProductType[] | Promise<ProductType[]>;
 }
 
-export interface SelectableOutput {
+export interface SelectableType {
     _id: string;
     label: string;
     value: string;

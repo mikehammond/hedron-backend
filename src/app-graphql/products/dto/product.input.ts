@@ -1,7 +1,7 @@
 import { InputType, Field } from 'type-graphql';
 
 @InputType()
-class Plan {
+class PlanInput {
   @Field()
   readonly name: string;
 
@@ -13,7 +13,7 @@ class Plan {
 }
 
 @InputType()
-class Attachment {
+class AttachmentInput {
   @Field()
   readonly filename: string;
   
@@ -28,7 +28,7 @@ class Attachment {
 }
 
 @InputType()
-class Selectable {
+class SelectableInput {
   @Field()
   readonly label: string;
 
@@ -44,32 +44,32 @@ export class ProductInput {
   @Field()
   readonly description: string;
 
-  @Field(type => [Selectable])
-  readonly values: Selectable[];
+  @Field(type => [SelectableInput])
+  readonly values: SelectableInput[];
 
-  @Field(type => [Selectable])
-  readonly features: Selectable[];
+  @Field(type => [SelectableInput])
+  readonly features: SelectableInput[];
 
-  @Field(type => [Selectable])
-  readonly pricing: Selectable[];
+  @Field(type => [SelectableInput])
+  readonly pricing: SelectableInput[];
 
-  @Field(type => [Selectable])
-  readonly devices: Selectable[];
+  @Field(type => [SelectableInput])
+  readonly devices: SelectableInput[];
 
-  @Field(type => [Selectable])
-  readonly categories: Selectable[];
+  @Field(type => [SelectableInput])
+  readonly categories: SelectableInput[];
 
-  @Field(type => [Plan])
-  readonly plans: Plan[];
+  @Field(type => [PlanInput])
+  readonly plans: PlanInput[];
 
-  @Field(type => Attachment)
-  readonly logo: Attachment;
+  @Field(type => AttachmentInput)
+  readonly logo: AttachmentInput;
 
-  @Field(type => Attachment)
-  readonly featured: Attachment;
+  @Field(type => AttachmentInput)
+  readonly featured: AttachmentInput;
 
-  @Field(type => [Attachment])
-  readonly attachments: Attachment[];
+  @Field(type => [AttachmentInput])
+  readonly attachments: AttachmentInput[];
 }
 
 

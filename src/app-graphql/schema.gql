@@ -3,14 +3,14 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input Attachment {
+input AttachmentInput {
   filename: String!
   url: String!
   mimetype: String!
   size: Float!
 }
 
-type AttachmentOutput {
+type AttachmentType {
   _id: String!
   filename: String!
   url: String!
@@ -25,13 +25,13 @@ type Mutation {
   deleteProduct(productId: String!): ProductType!
 }
 
-input Plan {
+input PlanInput {
   name: String!
   price: String!
   description: String!
 }
 
-type PlanOutput {
+type PlanType {
   _id: String!
   name: String!
   price: String!
@@ -47,15 +47,15 @@ input ProductFilter {
 input ProductInput {
   name: String!
   description: String!
-  values: [Selectable!]!
-  features: [Selectable!]!
-  pricing: [Selectable!]!
-  devices: [Selectable!]!
-  categories: [Selectable!]!
-  plans: [Plan!]!
-  logo: Attachment!
-  featured: Attachment!
-  attachments: [Attachment!]!
+  values: [SelectableInput!]!
+  features: [SelectableInput!]!
+  pricing: [SelectableInput!]!
+  devices: [SelectableInput!]!
+  categories: [SelectableInput!]!
+  plans: [PlanInput!]!
+  logo: AttachmentInput!
+  featured: AttachmentInput!
+  attachments: [AttachmentInput!]!
 }
 
 type ProductType {
@@ -66,27 +66,27 @@ type ProductType {
   archived: Boolean!
   name: String!
   description: String!
-  values: [SelectableOutput!]!
-  features: [SelectableOutput!]!
-  pricing: [SelectableOutput!]!
-  devices: [SelectableOutput!]!
-  categories: [SelectableOutput!]!
-  plans: [PlanOutput!]!
-  logo: AttachmentOutput!
-  featured: AttachmentOutput!
-  attachments: [AttachmentOutput!]!
+  values: [SelectableType!]!
+  features: [SelectableType!]!
+  pricing: [SelectableType!]!
+  devices: [SelectableType!]!
+  categories: [SelectableType!]!
+  plans: [PlanType!]!
+  logo: AttachmentType!
+  featured: AttachmentType!
+  attachments: [AttachmentType!]!
 }
 
 type Query {
   products(filter: ProductFilter!): [ProductType!]!
 }
 
-input Selectable {
+input SelectableInput {
   label: String!
   value: String!
 }
 
-type SelectableOutput {
+type SelectableType {
   _id: String!
   label: String!
   value: String!

@@ -8,6 +8,8 @@ import {
   UseGuards,
   UnauthorizedException,
   Query,
+  Param,
+  Delete,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { v4 as uuidv4 } from 'uuid';
@@ -44,6 +46,11 @@ export class ProductsController {
     return this.ibmDiscoveryService.queryCollection(query);
   }
 
+  @Delete('/documents/:id')
+  deleteDocument(@Param() params) {
+    return this.ibmDiscoveryService.deleteDocument(params.id);
+  }
+
   @Post('/uploads')
   @UseInterceptors(FileFieldsInterceptor([
     { name: 'logo', maxCount: 1 },
@@ -53,25 +60,27 @@ export class ProductsController {
   async upload(@UploadedFiles() files) {
     const modifiedLogo = { ...files.logo[0], uuid: uuidv4() };
     const modifiedFeatured = { ...files.featured[0], uuid: uuidv4() };
-    const modifiedAttachments = files.attachments.map(attachment => ({ ...attachment, uuid: uuidv4() }));
+    const modifiedAttachments = files.attachments.map(
+      attachment => ({ ...attachment, uuid: uuidv4() })
+    );
 
     const { IBM_COS_ENDPOINT, IBM_COS_BUCKET_NAME } = process.env;
     const featured = {
-      filename: modifiedFeatured.originalname,
+      filename: `${modifiedFeatured.uuid}_${modifiedFeatured.originalname}`,
       url: `https://${IBM_COS_ENDPOINT}/${IBM_COS_BUCKET_NAME}/${modifiedFeatured.uuid}_${modifiedFeatured.originalname}`,
       mimetype: modifiedFeatured.mimetype,
       size: modifiedFeatured.size
     }
 
     const logo = {
-      filename: modifiedLogo.originalname,
+      filename: `${modifiedLogo.uuid}_${modifiedLogo.originalname}`,
       url: `https://${IBM_COS_ENDPOINT}/${IBM_COS_BUCKET_NAME}/${modifiedLogo.uuid}_${modifiedLogo.originalname}`,
       mimetype: modifiedLogo.mimetype,
       size: modifiedLogo.size
     }
     const attachments = modifiedAttachments.map((file: IFile) => {
       return {
-        filename: file.originalname,
+        filename: `${file.uuid}_${file.originalname}`,
         url: `https://${IBM_COS_ENDPOINT}/${IBM_COS_BUCKET_NAME}/${file.uuid}_${file.originalname}`,
         mimetype: file.mimetype,
         size: file.size

@@ -65,10 +65,23 @@ export class ProductsResolver {
     @Context('user') user: IUser,
     @Args('productId') productId: string
   ): Promise<ProductType> {
-    if (!user.permissions.includes('delete:products')) {
+    if (!user.permissions.includes('approve_changes:products')) {
       throw new UnauthorizedException('You do not have the permission to delete a product');
     }
 
     return this.productsService.deleteProduct(productId);
+  }
+
+  @Mutation(() => ProductType)
+  async updateStatus(
+    @Context('user') user: IUser,
+    @Args('productId') productId: string,
+    @Args('status') status: string
+  ): Promise<ProductType> {
+    if (!user.permissions.includes('approve_changes:products')) {
+      throw new UnauthorizedException('You do not have the permission to update product status');
+    }
+
+    return this.productsService.updateStatus(productId, status);
   }
 }

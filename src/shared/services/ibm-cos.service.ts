@@ -32,4 +32,15 @@ export class IBMCloudObjectStorageService {
       Body: file.buffer
     }).promise();
   }
+
+  deleteObjects(keys: string[]) {
+    return keys.map(key => this.deleteObject(key));
+  }
+
+  private deleteObject(key: string) {
+    return this.cloudObjectStorage.deleteObject({
+      Bucket: this.configService.get<string>('IBM_COS_BUCKET_NAME'),
+      Key: key
+    }).promise();
+  }
 }

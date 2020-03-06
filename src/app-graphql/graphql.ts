@@ -57,6 +57,7 @@ export interface IMutation {
     archiveProduct(productId: string): ProductType | Promise<ProductType>;
     restoreProduct(productId: string): ProductType | Promise<ProductType>;
     deleteProduct(productId: string): ProductType | Promise<ProductType>;
+    updateStatus(status: string, productId: string): ProductType | Promise<ProductType>;
 }
 
 export interface PlanType {

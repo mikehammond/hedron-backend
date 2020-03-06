@@ -23,6 +23,7 @@ type Mutation {
   archiveProduct(productId: String!): ProductType!
   restoreProduct(productId: String!): ProductType!
   deleteProduct(productId: String!): ProductType!
+  updateStatus(status: String!, productId: String!): ProductType!
 }
 
 input PlanInput {

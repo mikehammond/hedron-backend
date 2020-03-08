@@ -11,14 +11,19 @@ import { verifyJWT } from '../utils/helpers';
       definitions: {
         path: 'src/app-graphql/graphql.ts',
       },
-      context: async ({ req }) => {
+      context: async ({ req, connection }) => {
         try {
+          if (connection) {
+            return connection.context;
+          }
+
           const user = await verifyJWT(req.headers.authorization.split(' ')[1]);
           return { user };
         } catch (error) {
           throw new UnauthorizedException();
         }
-      }
+      },
+      installSubscriptionHandlers: true
     }),
     ProductsModule
   ],

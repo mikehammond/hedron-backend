@@ -93,3 +93,7 @@ type SelectableType {
   label: String!
   value: String!
 }
+
+type Subscription {
+  productUpdated(productId: String!): String!
+}

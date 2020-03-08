@@ -1,10 +1,13 @@
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context, Subscription } from '@nestjs/graphql';
 import { UnauthorizedException } from '@nestjs/common';
+import { PubSub } from 'graphql-subscriptions';
 
 import { ProductType } from './dto/product.dto';
 import { ProductInput, ProductFilter } from './dto/product.input';
 import { ProductsService } from '../../shared/services/products.service';
 import { IUser } from '../../shared/interfaces/user.interface';
+
+const pubSub = new PubSub();
 
 @Resolver('Products')
 export class ProductsResolver {
@@ -94,6 +97,20 @@ export class ProductsResolver {
       throw new UnauthorizedException('You do not have the permission to update product status');
     }
 
+    pubSub.publish('productUpdated', {
+      productUpdated: `Very Much Updated to ${status}`,
+      productId
+    });
+
     return this.productsService.updateStatus(productId, status);
+  }
+
+  @Subscription(() => String, {
+    filter: (payload, variables) => payload.productId === variables.productId
+  })
+  async productUpdated(
+    @Args('productId') productId: string
+  ) {
+    return pubSub.asyncIterator('productUpdated');
   }
 }

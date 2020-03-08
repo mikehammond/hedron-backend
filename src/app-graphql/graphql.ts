@@ -96,3 +96,7 @@ export interface SelectableType {
     label: string;
     value: string;
 }
+
+export interface ISubscription {
+    productUpdated(productId: string): string | Promise<string>;
+}

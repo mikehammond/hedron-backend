@@ -48,3 +48,12 @@ export const ProductSchema = new Schema({
   featured: AttachmentSchema,
   attachments: [AttachmentSchema],
 });
+
+export const DemoRequestSchema = new Schema({
+  productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
+  email: { type: String, required: true },
+  message: { type: String, required: true },
+});

@@ -80,6 +80,7 @@ type ProductType {
 
 type Query {
   products(filter: ProductFilter!): [ProductType!]!
+  product(productId: String!): ProductType!
 }
 
 input SelectableInput {

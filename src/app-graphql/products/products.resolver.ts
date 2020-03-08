@@ -24,6 +24,18 @@ export class ProductsResolver {
     return this.productsService.products(filter);
   }
 
+  @Query(() => ProductType)
+  async product(
+    @Context('user') user: IUser,
+    @Args('productId') productId: string
+  ) {
+    if (!user.permissions.includes('read:products')) {
+      throw new UnauthorizedException('You do not have the permission to retrieve products');
+    }
+
+    return this.productsService.getProductById(productId);
+  }
+
   @Mutation(() => ProductType)
   async addProduct(
     @Context('user') user: IUser,

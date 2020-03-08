@@ -88,6 +88,7 @@ export interface ProductType {
 
 export interface IQuery {
     products(filter: ProductFilter): ProductType[] | Promise<ProductType[]>;
+    product(productId: string): ProductType | Promise<ProductType>;
 }
 
 export interface SelectableType {

@@ -6,7 +6,7 @@ import { IamAuthenticator } from 'ibm-watson/auth'
 import { Buffer } from 'buffer';
 
 import { ProductInput } from '../../app-graphql/products/dto/product.input';
-import { SearchQueryInput } from 'src/app-rest/products/dto/product.input';
+import { SearchQueryInput } from '../../app-rest/products/dto/product.input';
 
 @Injectable()
 export class IBMDicoveryService {

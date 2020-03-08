@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 
-import { ProductInput } from 'src/app-graphql/products/dto/product.input';
+import { ProductInput } from '../../app-graphql/products/dto/product.input';
 import { IBMDicoveryService } from './ibm-discovery.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { IProduct } from 'src/shared/interfaces/product.interface';
+import { IProduct } from '../interfaces/product.interface';
 import { IBMCloudObjectStorageService } from './ibm-cos.service';
 
 @Injectable()
@@ -19,7 +19,15 @@ export class ProductsService {
     try {
       return await this.productModel.find(filter);
     } catch (error) {
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  async getProductById(_id: string): Promise<IProduct> {
+    try {
+      return this.productModel.findById(_id);
+    } catch (error) {
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -33,7 +41,7 @@ export class ProductsService {
         ibmDiscoveryDocumentId: response.result.document_id
       });
     } catch (error) {
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -53,7 +61,7 @@ export class ProductsService {
 
       return await this.productModel.findById(_id);
     } catch (error) {
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -73,7 +81,7 @@ export class ProductsService {
 
       return await this.productModel.findById(_id);
     } catch (error) {
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -98,7 +106,7 @@ export class ProductsService {
 
       return await product.remove();
     } catch (error) {
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -114,7 +122,7 @@ export class ProductsService {
 
       return await this.productModel.findById(_id);
     } catch (error) {
-      throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error);
     }
   }
 }

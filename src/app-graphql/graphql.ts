@@ -39,6 +39,10 @@ export interface ProductInput {
     attachments: AttachmentInput[];
 }
 
+export interface SearchQueryInput {
+    query: string;
+}
+
 export interface SelectableInput {
     label: string;
     value: string;
@@ -68,8 +72,8 @@ export interface PlanType {
 }
 
 export interface ProductType {
-    _id: string;
-    userId: string;
+    _id?: string;
+    userId?: string;
     ibmDiscoveryDocumentId: string;
     status: string;
     archived: boolean;
@@ -87,8 +91,10 @@ export interface ProductType {
 }
 
 export interface IQuery {
+    searchProducts(searchQueryInput: SearchQueryInput): ProductType[] | Promise<ProductType[]>;
+    getProductByName(productName: string): ProductType | Promise<ProductType>;
     products(filter: ProductFilter): ProductType[] | Promise<ProductType[]>;
-    product(productId: string): ProductType | Promise<ProductType>;
+    getProductById(productId: string): ProductType | Promise<ProductType>;
 }
 
 export interface SelectableType {

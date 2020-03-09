@@ -5,5 +5,5 @@ import { ApiProperty } from '@nestjs/swagger';
 export class SearchQueryInput {
   @ApiProperty()
   @IsNotEmpty()
-  searchPhrase: string;
+  query: string;
 }

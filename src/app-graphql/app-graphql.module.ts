@@ -15,10 +15,12 @@ import { verifyJWT } from '../utils/helpers';
         try {
           if (connection) {
             return connection.context;
+          } else if (req.headers.authorization) {
+            const user = await verifyJWT(req.headers.authorization.split(' ')[1]);
+            return { user };
+          } else {
+            return { user: null };
           }
-
-          const user = await verifyJWT(req.headers.authorization.split(' ')[1]);
-          return { user };
         } catch (error) {
           throw new UnauthorizedException();
         }

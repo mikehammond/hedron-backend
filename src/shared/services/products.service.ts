@@ -31,6 +31,14 @@ export class ProductsService {
     }
   }
 
+  async getProductByName(name: string): Promise<IProduct> {
+    try {
+      return this.productModel.findOne({ name });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
   async addProduct(userId: string, product: ProductInput): Promise<IProduct> {
     try {
       const response = await this.ibmDiscoveryService.addDocument(product);

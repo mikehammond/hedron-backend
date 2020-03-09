@@ -60,8 +60,8 @@ input ProductInput {
 }
 
 type ProductType {
-  _id: ID!
-  userId: String!
+  _id: ID
+  userId: String
   ibmDiscoveryDocumentId: String!
   status: String!
   archived: Boolean!
@@ -79,8 +79,14 @@ type ProductType {
 }
 
 type Query {
+  searchProducts(searchQueryInput: SearchQueryInput!): [ProductType!]!
+  getProductByName(productName: String!): ProductType!
   products(filter: ProductFilter!): [ProductType!]!
-  product(productId: String!): ProductType!
+  getProductById(productId: String!): ProductType!
+}
+
+input SearchQueryInput {
+  query: String!
 }
 
 input SelectableInput {

@@ -5,8 +5,7 @@ import * as DiscoveryV1 from 'ibm-watson/discovery/v1'
 import { IamAuthenticator } from 'ibm-watson/auth'
 import { Buffer } from 'buffer';
 
-import { ProductInput } from '../../app-graphql/products/dto/product.input';
-import { SearchQueryInput } from '../../app-rest/products/dto/product.input';
+import { ProductInput, SearchQueryInput } from '../../app-graphql/products/dto/product.input';
 
 @Injectable()
 export class IBMDicoveryService {
@@ -24,13 +23,13 @@ export class IBMDicoveryService {
     });
   }
 
-  queryCollection(query: SearchQueryInput) {
+  queryCollection(searchQueryInput: SearchQueryInput) {
     return this.discoveryV1.query({
       environmentId: this.configService.get<string>('WATSON_DISCOVERY_ENVIRONMENT_ID'),
       collectionId: this.configService.get<string>('WATSON_DISCOVERY_COLLECTION_ID'),
-      query: query.searchPhrase,
-      naturalLanguageQuery: query.searchPhrase,
-      filter: query.searchPhrase
+      query: searchQueryInput.query,
+      naturalLanguageQuery: searchQueryInput.query,
+      filter: searchQueryInput.query
     });
   }
 

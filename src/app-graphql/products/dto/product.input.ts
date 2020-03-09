@@ -84,3 +84,9 @@ export class ProductFilter {
   @Field({ nullable: true })
   readonly userId: string;
 }
+
+@InputType()
+export class SearchQueryInput {
+  @Field(() => String)
+  readonly query: string;
+}

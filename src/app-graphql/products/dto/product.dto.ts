@@ -47,10 +47,10 @@ class PlanType {
 
 @ObjectType()
 export class ProductType {
-  @Field(type => ID)
+  @Field(type => ID, { nullable: true })
   readonly _id: string;
 
-  @Field()
+  @Field({ nullable: true })
   readonly userId: string;
 
   @Field()

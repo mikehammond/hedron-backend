@@ -3,24 +3,43 @@ import { UnauthorizedException } from '@nestjs/common';
 import { PubSub } from 'graphql-subscriptions';
 
 import { ProductType } from './dto/product.dto';
-import { ProductInput, ProductFilter } from './dto/product.input';
+import { ProductInput, ProductFilter, SearchQueryInput } from './dto/product.input';
 import { ProductsService } from '../../shared/services/products.service';
 import { IUser } from '../../shared/interfaces/user.interface';
+import { IBMDicoveryService } from '../../shared/services/ibm-discovery.service';
 
 const pubSub = new PubSub();
 
 @Resolver('Products')
 export class ProductsResolver {
   constructor(
-    private readonly productsService: ProductsService
+    private readonly productsService: ProductsService,
+    private readonly ibmDiscoveryService: IBMDicoveryService
   ) {}
+
+  @Query(() => [ProductType])
+  async searchProducts(
+    @Context('user') user: IUser,
+    @Args('searchQueryInput') searchQueryInput: SearchQueryInput,
+  ): Promise<ProductType[]> {
+    const response = await this.ibmDiscoveryService.queryCollection(searchQueryInput);
+    return (response.result.results as ProductType[]);
+  }
+
+  @Query(() => ProductType)
+  async getProductByName(
+    @Context('user') user: IUser,
+    @Args('productName') productName: string,
+  ): Promise<ProductType> {
+    return this.productsService.getProductByName(productName);
+  }
 
   @Query(() => [ProductType])
   async products(
     @Context('user') user: IUser,
     @Args('filter') filter: ProductFilter,
   ): Promise<ProductType[]> {
-    if (!user.permissions.includes('read:products')) {
+    if (!user || !user.permissions.includes('read:products')) {
       throw new UnauthorizedException('You do not have the permission to retrieve products');
     }
     
@@ -28,11 +47,11 @@ export class ProductsResolver {
   }
 
   @Query(() => ProductType)
-  async product(
+  async getProductById(
     @Context('user') user: IUser,
     @Args('productId') productId: string
   ) {
-    if (!user.permissions.includes('read:products')) {
+    if (!user || !user.permissions.includes('read:products')) {
       throw new UnauthorizedException('You do not have the permission to retrieve products');
     }
 
@@ -44,7 +63,7 @@ export class ProductsResolver {
     @Context('user') user: IUser,
     @Args('product') product: ProductInput,
   ): Promise<ProductType> {
-    if (!user.permissions.includes('create:products')) {
+    if (!user || !user.permissions.includes('create:products')) {
       throw new UnauthorizedException('You do not have the permission to create a product');
     }
 
@@ -56,7 +75,7 @@ export class ProductsResolver {
     @Context('user') user: IUser,
     @Args('productId') productId: string
   ): Promise<ProductType> {
-    if (!user.permissions.includes('archive:products')) {
+    if (!user || !user.permissions.includes('archive:products')) {
       throw new UnauthorizedException('You do not have the permission to archive a product');
     }
 
@@ -68,7 +87,7 @@ export class ProductsResolver {
     @Context('user') user: IUser,
     @Args('productId') productId: string
   ): Promise<ProductType> {
-    if (!user.permissions.includes('restore:products')) {
+    if (!user || !user.permissions.includes('restore:products')) {
       throw new UnauthorizedException('You do not have the permission to restore a product');
     }
 
@@ -80,7 +99,7 @@ export class ProductsResolver {
     @Context('user') user: IUser,
     @Args('productId') productId: string
   ): Promise<ProductType> {
-    if (!user.permissions.includes('approve_changes:products')) {
+    if (!user || !user.permissions.includes('approve_changes:products')) {
       throw new UnauthorizedException('You do not have the permission to delete a product');
     }
 
@@ -93,7 +112,7 @@ export class ProductsResolver {
     @Args('productId') productId: string,
     @Args('status') status: string
   ): Promise<ProductType> {
-    if (!user.permissions.includes('approve_changes:products')) {
+    if (!user || !user.permissions.includes('approve_changes:products')) {
       throw new UnauthorizedException('You do not have the permission to update product status');
     }
 

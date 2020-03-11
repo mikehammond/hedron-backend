@@ -7,6 +7,7 @@ import { IBMCloudObjectStorageService } from './services/ibm-cos.service';
 import { ConfigService } from '@nestjs/config';
 import { ProductsService } from './services/products.service';
 import { ProductSchema, ReviewSchema, FAQSchema } from './schemas/product.schema';
+import { DemoRequestSchema } from './schemas/demo-request.schema';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ProductSchema, ReviewSchema, FAQSchema } from './schemas/product.schema
       { name: 'Product', schema: ProductSchema.plugin(uniqueValidator) },
       { name: 'Review', schema: ReviewSchema.plugin(uniqueValidator) },
       { name: 'FAQ', schema: FAQSchema.plugin(uniqueValidator) },
+      { name: 'DemoRequest', schema: DemoRequestSchema.plugin(uniqueValidator) },
     ])
   ],
   providers: [

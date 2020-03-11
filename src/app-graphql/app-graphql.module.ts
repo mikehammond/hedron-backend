@@ -1,8 +1,9 @@
 import { Module, UnauthorizedException } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 
-import { ProductsModule } from './products/products.module';
 import { verifyJWT } from '../utils/helpers';
+import { ProductsModule } from './products/products.module';
+import { DemoRequestsModule } from './demo-requests/demo-requests.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { verifyJWT } from '../utils/helpers';
       },
       installSubscriptionHandlers: true
     }),
-    ProductsModule
+    ProductsModule,
+    DemoRequestsModule
   ],
   providers: []
 })

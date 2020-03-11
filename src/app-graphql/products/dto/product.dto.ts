@@ -46,6 +46,18 @@ class PlanType {
 }
 
 @ObjectType()
+class ValueType {
+  @Field()
+  readonly _id: string;
+
+  @Field({ nullable: true })
+  readonly name: string;
+  
+  @Field({ nullable: true })
+  readonly description: string;
+}
+
+@ObjectType()
 export class ProductType {
   @Field(type => ID, { nullable: true })
   readonly _id: string;
@@ -68,8 +80,8 @@ export class ProductType {
   @Field()
   readonly description: string;
 
-  @Field(type => [SelectableType])
-  readonly values: SelectableType[];
+  @Field(type => [ValueType])
+  readonly values: ValueType[];
 
   @Field(type => [SelectableType])
   readonly features: SelectableType[];

@@ -28,7 +28,7 @@ export interface ProductFilter {
 export interface ProductInput {
     name: string;
     description: string;
-    values: SelectableInput[];
+    values: ValueInput[];
     features: SelectableInput[];
     pricing: SelectableInput[];
     devices: SelectableInput[];
@@ -46,6 +46,11 @@ export interface SearchQueryInput {
 export interface SelectableInput {
     label: string;
     value: string;
+}
+
+export interface ValueInput {
+    name: string;
+    description: string;
 }
 
 export interface AttachmentType {
@@ -79,7 +84,7 @@ export interface ProductType {
     archived: boolean;
     name: string;
     description: string;
-    values: SelectableType[];
+    values: ValueType[];
     features: SelectableType[];
     pricing: SelectableType[];
     devices: SelectableType[];
@@ -105,4 +110,10 @@ export interface SelectableType {
 
 export interface ISubscription {
     productUpdated(productId: string): string | Promise<string>;
+}
+
+export interface ValueType {
+    _id: string;
+    name?: string;
+    description?: string;
 }

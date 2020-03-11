@@ -13,6 +13,15 @@ class PlanInput {
 }
 
 @InputType()
+class ValueInput {
+  @Field()
+  readonly name: string;
+  
+  @Field()
+  readonly description: string;
+}
+
+@InputType()
 class AttachmentInput {
   @Field()
   readonly filename: string;
@@ -44,8 +53,8 @@ export class ProductInput {
   @Field()
   readonly description: string;
 
-  @Field(type => [SelectableInput])
-  readonly values: SelectableInput[];
+  @Field(type => [ValueInput])
+  readonly values: ValueInput[];
 
   @Field(type => [SelectableInput])
   readonly features: SelectableInput[];

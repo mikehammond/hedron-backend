@@ -48,7 +48,7 @@ input ProductFilter {
 input ProductInput {
   name: String!
   description: String!
-  values: [SelectableInput!]!
+  values: [ValueInput!]!
   features: [SelectableInput!]!
   pricing: [SelectableInput!]!
   devices: [SelectableInput!]!
@@ -67,7 +67,7 @@ type ProductType {
   archived: Boolean!
   name: String!
   description: String!
-  values: [SelectableType!]!
+  values: [ValueType!]!
   features: [SelectableType!]!
   pricing: [SelectableType!]!
   devices: [SelectableType!]!
@@ -102,4 +102,15 @@ type SelectableType {
 
 type Subscription {
   productUpdated(productId: String!): String!
+}
+
+input ValueInput {
+  name: String!
+  description: String!
+}
+
+type ValueType {
+  _id: String!
+  name: String
+  description: String
 }

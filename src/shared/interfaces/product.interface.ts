@@ -18,6 +18,11 @@ export interface IPlan extends Document {
   description: string;
 }
 
+export interface IValue extends Document {
+  name: string;
+  description: string;
+}
+
 export interface IProduct extends Document {
   userId: string;
   ibmDiscoveryDocumentId: string;
@@ -25,7 +30,7 @@ export interface IProduct extends Document {
   archived: boolean;
   name: string;
   description: string;
-  values: ISelectable[];
+  values: IValue[];
   features: ISelectable[];
   pricing: ISelectable[];
   devices: ISelectable[];

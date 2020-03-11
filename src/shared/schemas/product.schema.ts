@@ -13,6 +13,11 @@ const PlanSchema = new Schema({
   description: { type: Schema.Types.String, required: true },
 });
 
+const ValueSchema = new Schema({
+  name: { type: Schema.Types.String, required: true },
+  description: { type: Schema.Types.String, required: true },
+});
+
 const SelectableSchema = new Schema({
   label: { type: Schema.Types.String, required: true },
   value: { type: Schema.Types.String, required: true },
@@ -38,7 +43,7 @@ export const ProductSchema = new Schema({
   archived: { type: Schema.Types.Boolean, default: false },
   name: { type: Schema.Types.String, required: true, unique: true },
   description: { type: Schema.Types.String, required: true },
-  values: [SelectableSchema],
+  values: [ValueSchema],
   features: [SelectableSchema],
   pricing: [SelectableSchema],
   devices: [SelectableSchema],

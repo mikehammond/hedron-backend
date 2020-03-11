@@ -7,7 +7,5 @@ import { IDemoRequest } from '../interfaces/demo-request.interface';
 export class DemoRequestsService {
   constructor(
     @InjectModel('DemoRequest') private readonly demoRequestModel: Model<IDemoRequest>
-  ) {
-    
-  }
+  ) {}
 }

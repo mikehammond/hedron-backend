@@ -29,7 +29,6 @@ export class IBMDicoveryService {
       collectionId: this.configService.get<string>('WATSON_DISCOVERY_COLLECTION_ID'),
       query: searchQueryInput.query,
       naturalLanguageQuery: searchQueryInput.query,
-      filter: searchQueryInput.query
     });
   }
 

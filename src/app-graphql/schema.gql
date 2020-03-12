@@ -86,7 +86,7 @@ type Query {
 }
 
 input SearchQueryInput {
-  query: String!
+  query: String
 }
 
 input SelectableInput {

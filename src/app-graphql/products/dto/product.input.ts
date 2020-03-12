@@ -96,6 +96,6 @@ export class ProductFilter {
 
 @InputType()
 export class SearchQueryInput {
-  @Field(() => String)
+  @Field({ nullable: true })
   readonly query: string;
 }

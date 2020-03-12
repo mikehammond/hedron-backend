@@ -40,7 +40,7 @@ export interface ProductInput {
 }
 
 export interface SearchQueryInput {
-    query: string;
+    query?: string;
 }
 
 export interface SelectableInput {

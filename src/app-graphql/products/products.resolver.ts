@@ -23,7 +23,12 @@ export class ProductsResolver {
     @Args('searchQueryInput') searchQueryInput: SearchQueryInput,
   ): Promise<ProductType[]> {
     const response = await this.ibmDiscoveryService.queryCollection(searchQueryInput);
-    return (response.result.results as ProductType[]);
+    const ids = response.result.results.map(x => x.id);
+    
+    return this.productsService.products({
+      ibmDiscoveryDocumentId: { $in: ids },
+      status: 'approved'
+    });
   }
 
   @Query(() => ProductType)

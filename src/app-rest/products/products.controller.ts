@@ -1,55 +1,21 @@
 import {
   Controller,
-  Get,
   Post,
-  Req,
   UseInterceptors,
   UploadedFiles,
-  UseGuards,
-  UnauthorizedException,
-  Query,
-  Param,
-  Delete,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ProductsService } from '../../shared/services/products.service';
 import { IBMCloudObjectStorageService } from '../../shared/services/ibm-cos.service';
-import { IBMDicoveryService } from '../../shared/services/ibm-discovery.service';
 
-import { AuthGuard } from '../../shared/guards/auth.guard';
-import { IUser } from '../../shared/interfaces/user.interface';
 import { IFile } from '../../shared/interfaces/file.interface';
-import { SearchQueryInput } from './dto/product.input';
 
 @Controller('products')
 export class ProductsController {
   constructor(
-    private readonly productsService: ProductsService,
     private readonly ibmCloudObjectStorageService: IBMCloudObjectStorageService,
-    private readonly ibmDiscoveryService: IBMDicoveryService,
   ) {}
-
-  @Get()
-  @UseGuards(AuthGuard)
-  findAll(@Req() request) {
-    if (!(request.user as IUser).permissions.includes('read:products')) {
-      throw new UnauthorizedException('You do not have the permission to retrieve products');
-    }
-
-    return this.productsService.products(request.query);
-  }
-
-  @Get('/search')
-  searchProducts(@Query() query: SearchQueryInput) {
-    return this.ibmDiscoveryService.queryCollection(query);
-  }
-
-  @Delete('/documents/:id')
-  deleteDocument(@Param() params) {
-    return this.ibmDiscoveryService.deleteDocument(params.id);
-  }
 
   @Post('/uploads')
   @UseInterceptors(FileFieldsInterceptor([

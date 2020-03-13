@@ -1,18 +1,6 @@
 import { InputType, Field } from 'type-graphql';
 
 @InputType()
-class PlanInput {
-  @Field()
-  readonly name: string;
-
-  @Field()
-  readonly price: string;
-  
-  @Field()
-  readonly description: string;
-}
-
-@InputType()
 class ValueInput {
   @Field()
   readonly name: string;
@@ -46,9 +34,24 @@ class SelectableInput {
 }
 
 @InputType()
+class PlanInput {
+  @Field()
+  readonly name: string;
+
+  @Field()
+  readonly price: string;
+  
+  @Field(() => [SelectableInput])
+  readonly features: SelectableInput[];
+}
+
+@InputType()
 export class ProductInput {
   @Field()
   readonly name: string;
+
+  @Field()
+  readonly summary: string;
 
   @Field()
   readonly description: string;

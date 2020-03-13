@@ -15,7 +15,7 @@ export interface ISelectable extends Document {
 export interface IPlan extends Document {
   name: string;
   price: string;
-  description: string;
+  features: ISelectable[];
 }
 
 export interface IValue extends Document {
@@ -29,6 +29,7 @@ export interface IProduct extends Document {
   status: string;
   archived: boolean;
   name: string;
+  summary: string;
   description: string;
   values: IValue[];
   features: ISelectable[];

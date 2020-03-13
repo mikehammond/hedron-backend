@@ -18,25 +18,61 @@ type AttachmentType {
   size: Float!
 }
 
+input DemoRequestFilter {
+  receiver: String!
+}
+
+input DemoRequestInput {
+  sender: String!
+  receiver: String!
+  productId: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phoneNumber: String!
+  company: String!
+  position: String!
+  website: String!
+  numberOfEmployees: String!
+  message: String!
+}
+
+type DemoRequestType {
+  _id: ID
+  sender: String!
+  receiver: String!
+  productId: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phoneNumber: String!
+  company: String!
+  position: String!
+  website: String!
+  numberOfEmployees: String!
+  message: String!
+}
+
 type Mutation {
   addProduct(product: ProductInput!): ProductType!
   archiveProduct(productId: String!): ProductType!
   restoreProduct(productId: String!): ProductType!
   deleteProduct(productId: String!): ProductType!
   updateStatus(status: String!, productId: String!): ProductType!
+  requestDemo(demo: DemoRequestInput!): DemoRequestType!
 }
 
 input PlanInput {
   name: String!
   price: String!
-  description: String!
+  features: [SelectableInput!]!
 }
 
 type PlanType {
   _id: String!
   name: String!
   price: String!
-  description: String!
+  features: [SelectableType!]!
 }
 
 input ProductFilter {
@@ -47,6 +83,7 @@ input ProductFilter {
 
 input ProductInput {
   name: String!
+  summary: String!
   description: String!
   values: [ValueInput!]!
   features: [SelectableInput!]!
@@ -66,6 +103,7 @@ type ProductType {
   status: String!
   archived: Boolean!
   name: String!
+  summary: String!
   description: String!
   values: [ValueType!]!
   features: [SelectableType!]!
@@ -83,6 +121,7 @@ type Query {
   getProductByName(productName: String!): ProductType!
   products(filter: ProductFilter!): [ProductType!]!
   getProductById(productId: String!): ProductType!
+  demoRequests(filter: DemoRequestFilter!): [DemoRequestType!]!
 }
 
 input SearchQueryInput {

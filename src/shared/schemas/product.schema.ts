@@ -7,12 +7,6 @@ const AttachmentSchema = new Schema({
   size: { type: Schema.Types.Number, required: true },
 });
 
-const PlanSchema = new Schema({
-  name: { type: Schema.Types.String, required: true },
-  price: { type: Schema.Types.String, required: true },
-  description: { type: Schema.Types.String, required: true },
-});
-
 const ValueSchema = new Schema({
   name: { type: Schema.Types.String, required: true },
   description: { type: Schema.Types.String, required: true },
@@ -21,6 +15,12 @@ const ValueSchema = new Schema({
 const SelectableSchema = new Schema({
   label: { type: Schema.Types.String, required: true },
   value: { type: Schema.Types.String, required: true },
+});
+
+const PlanSchema = new Schema({
+  name: { type: Schema.Types.String, required: true },
+  price: { type: Schema.Types.String, required: true },
+  features: [SelectableSchema],
 });
 
 export const ReviewSchema = new Schema({
@@ -42,6 +42,7 @@ export const ProductSchema = new Schema({
   status: { type: Schema.Types.String, default: 'pending', enum: ['pending', 'approved', 'denied'] },
   archived: { type: Schema.Types.Boolean, default: false },
   name: { type: Schema.Types.String, required: true, unique: true },
+  summary: { type: Schema.Types.String, required: true },
   description: { type: Schema.Types.String, required: true },
   values: [ValueSchema],
   features: [SelectableSchema],

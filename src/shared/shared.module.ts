@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { ProductsService } from './services/products.service';
 import { ProductSchema, ReviewSchema, FAQSchema } from './schemas/product.schema';
 import { DemoRequestSchema } from './schemas/demo-request.schema';
+import { DemoRequestsService } from './services/demo-requests.service';
 
 @Module({
   imports: [
@@ -21,12 +22,14 @@ import { DemoRequestSchema } from './schemas/demo-request.schema';
   providers: [
     ConfigService,
     ProductsService,
+    DemoRequestsService,
     IBMDicoveryService,
     IBMCloudObjectStorageService,
   ],
   exports: [
     ConfigService,
     ProductsService,
+    DemoRequestsService,
     IBMDicoveryService,
     IBMCloudObjectStorageService,
   ]

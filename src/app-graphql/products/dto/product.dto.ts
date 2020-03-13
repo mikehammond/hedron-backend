@@ -41,8 +41,8 @@ class PlanType {
   @Field()
   readonly price: string;
   
-  @Field()
-  readonly description: string;
+  @Field(() => [SelectableType])
+  readonly features: SelectableType[];
 }
 
 @ObjectType()
@@ -76,6 +76,9 @@ export class ProductType {
 
   @Field()
   readonly name: string;
+
+  @Field()
+  readonly summary: string;
 
   @Field()
   readonly description: string;

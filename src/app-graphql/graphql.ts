@@ -13,10 +13,29 @@ export interface AttachmentInput {
     size: number;
 }
 
+export interface DemoRequestFilter {
+    receiver: string;
+}
+
+export interface DemoRequestInput {
+    sender: string;
+    receiver: string;
+    productId: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    company: string;
+    position: string;
+    website: string;
+    numberOfEmployees: string;
+    message: string;
+}
+
 export interface PlanInput {
     name: string;
     price: string;
-    description: string;
+    features: SelectableInput[];
 }
 
 export interface ProductFilter {
@@ -27,6 +46,7 @@ export interface ProductFilter {
 
 export interface ProductInput {
     name: string;
+    summary: string;
     description: string;
     values: ValueInput[];
     features: SelectableInput[];
@@ -61,19 +81,36 @@ export interface AttachmentType {
     size: number;
 }
 
+export interface DemoRequestType {
+    _id?: string;
+    sender: string;
+    receiver: string;
+    productId: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    company: string;
+    position: string;
+    website: string;
+    numberOfEmployees: string;
+    message: string;
+}
+
 export interface IMutation {
     addProduct(product: ProductInput): ProductType | Promise<ProductType>;
     archiveProduct(productId: string): ProductType | Promise<ProductType>;
     restoreProduct(productId: string): ProductType | Promise<ProductType>;
     deleteProduct(productId: string): ProductType | Promise<ProductType>;
     updateStatus(status: string, productId: string): ProductType | Promise<ProductType>;
+    requestDemo(demo: DemoRequestInput): DemoRequestType | Promise<DemoRequestType>;
 }
 
 export interface PlanType {
     _id: string;
     name: string;
     price: string;
-    description: string;
+    features: SelectableType[];
 }
 
 export interface ProductType {
@@ -83,6 +120,7 @@ export interface ProductType {
     status: string;
     archived: boolean;
     name: string;
+    summary: string;
     description: string;
     values: ValueType[];
     features: SelectableType[];
@@ -100,6 +138,7 @@ export interface IQuery {
     getProductByName(productName: string): ProductType | Promise<ProductType>;
     products(filter: ProductFilter): ProductType[] | Promise<ProductType[]>;
     getProductById(productId: string): ProductType | Promise<ProductType>;
+    demoRequests(filter: DemoRequestFilter): DemoRequestType[] | Promise<DemoRequestType[]>;
 }
 
 export interface SelectableType {

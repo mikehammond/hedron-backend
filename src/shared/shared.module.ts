@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigService } from '@nestjs/config';
 import * as uniqueValidator from 'mongoose-unique-validator';
 
-import { IBMDicoveryService } from './services/ibm-discovery.service';
+import { WatsonDicoveryService } from './services/watson-discovery.service';
 import { IBMCloudObjectStorageService } from './services/ibm-cos.service';
-import { ConfigService } from '@nestjs/config';
 import { ProductsService } from './services/products.service';
+import { DemoRequestsService } from './services/demo-requests.service';
+import { WatsonAssistantService } from './services/watson-assistant.service';
+
 import { ProductSchema, ReviewSchema, FAQSchema } from './schemas/product.schema';
 import { DemoRequestSchema } from './schemas/demo-request.schema';
-import { DemoRequestsService } from './services/demo-requests.service';
 
 @Module({
   imports: [
@@ -23,14 +25,16 @@ import { DemoRequestsService } from './services/demo-requests.service';
     ConfigService,
     ProductsService,
     DemoRequestsService,
-    IBMDicoveryService,
+    WatsonDicoveryService,
+    WatsonAssistantService,
     IBMCloudObjectStorageService,
   ],
   exports: [
     ConfigService,
     ProductsService,
     DemoRequestsService,
-    IBMDicoveryService,
+    WatsonDicoveryService,
+    WatsonAssistantService,
     IBMCloudObjectStorageService,
   ]
 })

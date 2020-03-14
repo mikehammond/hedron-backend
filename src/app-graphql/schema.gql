@@ -18,6 +18,16 @@ type AttachmentType {
   size: Float!
 }
 
+input ChatInput {
+  message: String!
+  sessionId: String
+}
+
+type ChatType {
+  sessionId: String!
+  output: OutputType!
+}
+
 input DemoRequestFilter {
   receiver: String!
 }
@@ -53,6 +63,20 @@ type DemoRequestType {
   message: String!
 }
 
+type EntityType {
+  productId: String!
+}
+
+type GenericType {
+  response_type: String!
+  text: String!
+}
+
+type IntentType {
+  intent: String!
+  confidence: Float!
+}
+
 type Mutation {
   addProduct(product: ProductInput!): ProductType!
   archiveProduct(productId: String!): ProductType!
@@ -60,6 +84,13 @@ type Mutation {
   deleteProduct(productId: String!): ProductType!
   updateStatus(status: String!, productId: String!): ProductType!
   requestDemo(demo: DemoRequestInput!): DemoRequestType!
+  askQuestion(chat: ChatInput!): ChatType!
+}
+
+type OutputType {
+  generic: [GenericType!]!
+  intents: [IntentType!]!
+  entities: [EntityType!]!
 }
 
 input PlanInput {

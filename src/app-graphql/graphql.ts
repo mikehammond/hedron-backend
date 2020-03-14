@@ -13,6 +13,11 @@ export interface AttachmentInput {
     size: number;
 }
 
+export interface ChatInput {
+    message: string;
+    sessionId?: string;
+}
+
 export interface DemoRequestFilter {
     receiver: string;
 }
@@ -81,6 +86,11 @@ export interface AttachmentType {
     size: number;
 }
 
+export interface ChatType {
+    sessionId: string;
+    output: OutputType;
+}
+
 export interface DemoRequestType {
     _id?: string;
     sender: string;
@@ -97,6 +107,20 @@ export interface DemoRequestType {
     message: string;
 }
 
+export interface EntityType {
+    productId: string;
+}
+
+export interface GenericType {
+    response_type: string;
+    text: string;
+}
+
+export interface IntentType {
+    intent: string;
+    confidence: number;
+}
+
 export interface IMutation {
     addProduct(product: ProductInput): ProductType | Promise<ProductType>;
     archiveProduct(productId: string): ProductType | Promise<ProductType>;
@@ -104,6 +128,13 @@ export interface IMutation {
     deleteProduct(productId: string): ProductType | Promise<ProductType>;
     updateStatus(status: string, productId: string): ProductType | Promise<ProductType>;
     requestDemo(demo: DemoRequestInput): DemoRequestType | Promise<DemoRequestType>;
+    askQuestion(chat: ChatInput): ChatType | Promise<ChatType>;
+}
+
+export interface OutputType {
+    generic: GenericType[];
+    intents: IntentType[];
+    entities: EntityType[];
 }
 
 export interface PlanType {

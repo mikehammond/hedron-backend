@@ -2,11 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { DemoRequestsResolver } from './demo-requests.resolver';
+import { ChatsResolver } from './chats.resolver';
 import { SharedModule } from '../../shared/shared.module';
 
-describe('DemoRequestsResolver', () => {
-  let resolver: DemoRequestsResolver;
+describe('ChatsResolver', () => {
+  let resolver: ChatsResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,10 +20,10 @@ describe('DemoRequestsResolver', () => {
         }),
         SharedModule,
       ],
-      providers: [DemoRequestsResolver],
+      providers: [ChatsResolver],
     }).compile();
 
-    resolver = module.get<DemoRequestsResolver>(DemoRequestsResolver);
+    resolver = module.get<ChatsResolver>(ChatsResolver);
   });
 
   it('should be defined', () => {

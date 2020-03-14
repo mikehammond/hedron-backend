@@ -6,7 +6,7 @@ import { ProductType } from './dto/product.dto';
 import { ProductInput, ProductFilter, SearchQueryInput } from './dto/product.input';
 import { ProductsService } from '../../shared/services/products.service';
 import { IUser } from '../../shared/interfaces/user.interface';
-import { IBMDicoveryService } from '../../shared/services/ibm-discovery.service';
+import { WatsonDicoveryService } from '../../shared/services/watson-discovery.service';
 
 const pubSub = new PubSub();
 
@@ -14,7 +14,7 @@ const pubSub = new PubSub();
 export class ProductsResolver {
   constructor(
     private readonly productsService: ProductsService,
-    private readonly ibmDiscoveryService: IBMDicoveryService
+    private readonly watsonDiscoveryService: WatsonDicoveryService
   ) {}
 
   @Query(() => [ProductType])
@@ -22,7 +22,7 @@ export class ProductsResolver {
     @Context('user') user: IUser,
     @Args('searchQueryInput') searchQueryInput: SearchQueryInput,
   ): Promise<ProductType[]> {
-    const response = await this.ibmDiscoveryService.queryCollection(searchQueryInput);
+    const response = await this.watsonDiscoveryService.queryCollection(searchQueryInput);
     const ids = response.result.results.map(x => x.id);
     
     return this.productsService.products({

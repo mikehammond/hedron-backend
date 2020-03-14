@@ -3,6 +3,7 @@ import {
   Post,
   UseInterceptors,
   UploadedFiles,
+  Body,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,12 +11,18 @@ import { v4 as uuidv4 } from 'uuid';
 import { IBMCloudObjectStorageService } from '../../shared/services/ibm-cos.service';
 
 import { IFile } from '../../shared/interfaces/file.interface';
+import { AddProductRequest } from './dto/product.input';
 
 @Controller('products')
 export class ProductsController {
   constructor(
     private readonly ibmCloudObjectStorageService: IBMCloudObjectStorageService,
   ) {}
+
+  @Post()
+  async addProduct(@Body() product: AddProductRequest) {
+    return product;
+  }
 
   @Post('/uploads')
   @UseInterceptors(FileFieldsInterceptor([

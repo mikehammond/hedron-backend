@@ -1,3 +1,3 @@
 import {} from '@nestjs/swagger';
 
-export class AddProductResponse {}
+export class ProductResponse {}

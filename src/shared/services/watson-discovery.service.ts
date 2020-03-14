@@ -8,7 +8,7 @@ import { Buffer } from 'buffer';
 import { ProductInput, SearchQueryInput } from '../../app-graphql/products/dto/product.input';
 
 @Injectable()
-export class IBMDicoveryService {
+export class WatsonDicoveryService {
   private discoveryV1: DiscoveryV1;
 
   constructor(

@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { verifyJWT } from '../utils/helpers';
 import { ProductsModule } from './products/products.module';
 import { DemoRequestsModule } from './demo-requests/demo-requests.module';
+import { ChatsModule } from './chats/chats.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { DemoRequestsModule } from './demo-requests/demo-requests.module';
       installSubscriptionHandlers: true
     }),
     ProductsModule,
-    DemoRequestsModule
+    DemoRequestsModule,
+    ChatsModule
   ],
   providers: []
 })

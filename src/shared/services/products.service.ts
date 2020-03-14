@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 
 import { ProductInput } from '../../app-graphql/products/dto/product.input';
-import { IBMDicoveryService } from './ibm-discovery.service';
+import { WatsonDicoveryService } from './watson-discovery.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IProduct } from '../interfaces/product.interface';
@@ -10,7 +10,7 @@ import { IBMCloudObjectStorageService } from './ibm-cos.service';
 @Injectable()
 export class ProductsService {
   constructor(
-    private readonly ibmDiscoveryService: IBMDicoveryService,
+    private readonly watsonDiscoveryService: WatsonDicoveryService,
     private readonly ibmCloudObjectStorage: IBMCloudObjectStorageService,
     @InjectModel('Product') private readonly productModel: Model<IProduct>
   ) {}
@@ -41,7 +41,7 @@ export class ProductsService {
 
   async addProduct(userId: string, product: ProductInput): Promise<IProduct> {
     try {
-      const response = await this.ibmDiscoveryService.addDocument(product);
+      const response = await this.watsonDiscoveryService.addDocument(product);
 
       return await this.productModel.create({
         userId,
@@ -108,7 +108,7 @@ export class ProductsService {
       ];
 
       await Promise.all([
-        this.ibmDiscoveryService.deleteDocument(product.ibmDiscoveryDocumentId),
+        this.watsonDiscoveryService.deleteDocument(product.ibmDiscoveryDocumentId),
         this.ibmCloudObjectStorage.deleteObjects(fileKeys),
       ]);
 

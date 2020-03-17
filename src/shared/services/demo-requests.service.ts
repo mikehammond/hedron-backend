@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { IDemoRequest } from '../interfaces/demo-request.interface';
-import { DemoRequestInput } from '../../app-graphql/demo-requests/dto/demo-request.input';
+import { DemoRequestInput } from '../../graphql/demo-requests/dto/demo-request.input';
 
 @Injectable()
 export class DemoRequestsService {

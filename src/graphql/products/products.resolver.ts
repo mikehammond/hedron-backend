@@ -27,7 +27,8 @@ export class ProductsResolver {
     
     return this.productsService.products({
       ibmDiscoveryDocumentId: { $in: ids },
-      status: 'approved'
+      status: 'approved',
+      archived: false
     });
   }
 

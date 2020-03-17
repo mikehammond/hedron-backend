@@ -42,6 +42,7 @@ export const ProductSchema = new Schema({
   status: { type: Schema.Types.String, default: 'pending', enum: ['pending', 'approved', 'denied'] },
   archived: { type: Schema.Types.Boolean, default: false },
   name: { type: Schema.Types.String, required: true, unique: true },
+  slug: { type: Schema.Types.String, required: true, unique: true },
   summary: { type: Schema.Types.String, required: true },
   description: { type: Schema.Types.String, required: true },
   values: [ValueSchema],

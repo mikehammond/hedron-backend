@@ -4,7 +4,7 @@ import { ConfigService } from "@nestjs/config";
 import * as AssistantV2 from 'ibm-watson/assistant/v2';
 import { IamAuthenticator } from 'ibm-watson/auth';
 
-import { ChatInput } from "../../app-graphql/chats/dto/chat.input";
+import { ChatInput } from "../../graphql/chats/dto/chat.input";
 
 @Injectable()
 export class WatsonAssistantService {

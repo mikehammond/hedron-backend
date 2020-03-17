@@ -3,8 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
-import { AppGraphqlModule } from './app-graphql/app-graphql.module';
-import { AppRestModule } from './app-rest/app-rest.module';
+import { AppGraphqlModule } from './graphql/app-graphql.module';
+import { AppRestModule } from './rest/app-rest.module';
 
 @Module({
   imports: [

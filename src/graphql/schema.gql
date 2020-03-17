@@ -134,7 +134,6 @@ type ProductType {
   status: String!
   archived: Boolean!
   name: String!
-  slug: String!
   summary: String!
   description: String!
   values: [ValueType!]!

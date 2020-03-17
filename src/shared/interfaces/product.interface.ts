@@ -29,6 +29,7 @@ export interface IProduct extends Document {
   status: string;
   archived: boolean;
   name: string;
+  slug: string;
   summary: string;
   description: string;
   values: IValue[];

@@ -5,7 +5,7 @@ import * as DiscoveryV1 from 'ibm-watson/discovery/v1'
 import { IamAuthenticator } from 'ibm-watson/auth'
 import { Buffer } from 'buffer';
 
-import { ProductInput, SearchQueryInput } from '../../app-graphql/products/dto/product.input';
+import { ProductInput, SearchQueryInput } from '../../graphql/products/dto/product.input';
 
 @Injectable()
 export class WatsonDicoveryService {

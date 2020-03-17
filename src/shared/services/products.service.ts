@@ -1,6 +1,12 @@
-import { Injectable, NotFoundException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+  InternalServerErrorException
+} from '@nestjs/common';
+import slugify from 'slugify';
 
-import { ProductInput } from '../../app-graphql/products/dto/product.input';
+import { ProductInput } from '../../graphql/products/dto/product.input';
 import { WatsonDicoveryService } from './watson-discovery.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -31,9 +37,9 @@ export class ProductsService {
     }
   }
 
-  async getProductByName(name: string): Promise<IProduct> {
+  async getProductByName(slug: string): Promise<IProduct> {
     try {
-      return this.productModel.findOne({ name });
+      return this.productModel.findOne({ slug });
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -46,6 +52,7 @@ export class ProductsService {
       return await this.productModel.create({
         userId,
         ...product,
+        slug: slugify(product.name, { lower: true }),
         ibmDiscoveryDocumentId: response.result.document_id
       });
     } catch (error) {

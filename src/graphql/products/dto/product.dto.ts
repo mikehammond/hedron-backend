@@ -78,6 +78,9 @@ export class ProductType {
   readonly name: string;
 
   @Field()
+  readonly slug: string;
+
+  @Field()
   readonly summary: string;
 
   @Field()

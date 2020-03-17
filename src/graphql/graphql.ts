@@ -151,7 +151,6 @@ export interface ProductType {
     status: string;
     archived: boolean;
     name: string;
-    slug: string;
     summary: string;
     description: string;
     values: ValueType[];

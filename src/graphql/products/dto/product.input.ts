@@ -2,85 +2,88 @@ import { InputType, Field } from 'type-graphql';
 
 @InputType()
 class ValueInput {
-  @Field()
+  @Field({ nullable: true })
   readonly name: string;
   
-  @Field()
+  @Field({ nullable: true })
   readonly description: string;
 }
 
 @InputType()
 class AttachmentInput {
-  @Field()
+  @Field({ nullable: true })
   readonly filename: string;
   
-  @Field()
+  @Field({ nullable: true })
   readonly url: string;
   
-  @Field()
+  @Field({ nullable: true })
   readonly mimetype: string;
   
-  @Field()
+  @Field({ nullable: true })
   readonly size: number;
 }
 
 @InputType()
 class SelectableInput {
-  @Field()
+  @Field({ nullable: true })
   readonly label: string;
 
-  @Field()
+  @Field({ nullable: true })
   readonly value: string;
 }
 
 @InputType()
 class PlanInput {
-  @Field()
+  @Field({ nullable: true })
   readonly name: string;
 
-  @Field()
+  @Field({ nullable: true })
   readonly price: string;
   
-  @Field(() => [SelectableInput])
+  @Field(() => [SelectableInput], { nullable: true })
   readonly features: SelectableInput[];
 }
 
 @InputType()
 export class ProductInput {
-  @Field()
+  @Field({ nullable: true })
+  readonly status: string;
+
+  @Field({ nullable: true })
   readonly name: string;
 
-  @Field()
+  @Field({ nullable: true })
   readonly summary: string;
 
-  @Field()
+  @Field({ nullable: true })
   readonly description: string;
 
-  @Field(type => [ValueInput])
+  @Field(type => [ValueInput], { nullable: true })
   readonly values: ValueInput[];
 
-  @Field(type => [SelectableInput])
+  @Field(type => [SelectableInput], { nullable: true })
   readonly features: SelectableInput[];
 
-  @Field(type => [SelectableInput])
+  @Field(type => [SelectableInput], { nullable: true })
   readonly pricing: SelectableInput[];
 
-  @Field(type => [SelectableInput])
+  @Field(type => [SelectableInput], { nullable: true })
   readonly devices: SelectableInput[];
 
-  @Field(type => [SelectableInput])
+  @Field(type => [SelectableInput], { nullable: true })
   readonly categories: SelectableInput[];
 
-  @Field(type => [PlanInput])
+  @Field(type => [PlanInput], { nullable: true })
   readonly plans: PlanInput[];
 
-  @Field(type => AttachmentInput)
+  @Field(type => AttachmentInput, { nullable: true })
   readonly logo: AttachmentInput;
 
-  @Field(type => AttachmentInput)
+  @Field(type => AttachmentInput, { nullable: true })
   readonly featured: AttachmentInput;
 
-  @Field(type => [AttachmentInput])
+  @Field(type => [AttachmentInput], { nullable: true })
   readonly attachments: AttachmentInput[];
 }
 

@@ -11,6 +11,8 @@ import { WatsonAssistantService } from './services/watson-assistant.service';
 
 import { ProductSchema, ReviewSchema, FAQSchema } from './schemas/product.schema';
 import { DemoRequestSchema } from './schemas/demo-request.schema';
+import { VendorSchema } from './schemas/vendor.schema';
+import { VendorsService } from './services/vendors.service';
 
 @Module({
   imports: [
@@ -19,12 +21,14 @@ import { DemoRequestSchema } from './schemas/demo-request.schema';
       { name: 'Review', schema: ReviewSchema.plugin(uniqueValidator) },
       { name: 'FAQ', schema: FAQSchema.plugin(uniqueValidator) },
       { name: 'DemoRequest', schema: DemoRequestSchema.plugin(uniqueValidator) },
+      { name: 'Vendor', schema: VendorSchema.plugin(uniqueValidator) },
     ])
   ],
   providers: [
     ConfigService,
     ProductsService,
     DemoRequestsService,
+    VendorsService,
     WatsonDicoveryService,
     WatsonAssistantService,
     IBMCloudObjectStorageService,
@@ -33,6 +37,7 @@ import { DemoRequestSchema } from './schemas/demo-request.schema';
     ConfigService,
     ProductsService,
     DemoRequestsService,
+    VendorsService,
     WatsonDicoveryService,
     WatsonAssistantService,
     IBMCloudObjectStorageService,

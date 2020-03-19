@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from 'type-graphql';
 
 @ObjectType()
 export class DemoRequestType {
-  @Field(type => ID, { nullable: true })
+  @Field(type => ID)
   readonly _id: string;
 
   @Field()

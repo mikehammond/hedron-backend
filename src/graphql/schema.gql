@@ -4,10 +4,10 @@
 # -----------------------------------------------
 
 input AttachmentInput {
-  filename: String!
-  url: String!
-  mimetype: String!
-  size: Float!
+  filename: String
+  url: String
+  mimetype: String
+  size: Float
 }
 
 type AttachmentType {
@@ -48,7 +48,7 @@ input DemoRequestInput {
 }
 
 type DemoRequestType {
-  _id: ID
+  _id: ID!
   sender: String!
   receiver: String!
   productId: String!
@@ -82,9 +82,12 @@ type Mutation {
   archiveProduct(productId: String!): ProductType!
   restoreProduct(productId: String!): ProductType!
   deleteProduct(productId: String!): ProductType!
-  updateStatus(status: String!, productId: String!): ProductType!
-  requestDemo(demo: DemoRequestInput!): DemoRequestType!
+  updateProduct(update: ProductInput!, productId: String!): ProductType!
+  addDemoRequest(demo: DemoRequestInput!): DemoRequestType!
   askQuestion(chat: ChatInput!): ChatType!
+  addVendor(vendor: VendorInput!): VendorType!
+  updateVendor(update: VendorInput!, vendorId: String!): VendorType!
+  deleteVendor(vendorId: String!): VendorType!
 }
 
 type OutputType {
@@ -94,9 +97,9 @@ type OutputType {
 }
 
 input PlanInput {
-  name: String!
-  price: String!
-  features: [SelectableInput!]!
+  name: String
+  price: String
+  features: [SelectableInput!]
 }
 
 type PlanType {
@@ -113,18 +116,19 @@ input ProductFilter {
 }
 
 input ProductInput {
-  name: String!
-  summary: String!
-  description: String!
-  values: [ValueInput!]!
-  features: [SelectableInput!]!
-  pricing: [SelectableInput!]!
-  devices: [SelectableInput!]!
-  categories: [SelectableInput!]!
-  plans: [PlanInput!]!
-  logo: AttachmentInput!
-  featured: AttachmentInput!
-  attachments: [AttachmentInput!]!
+  status: String
+  name: String
+  summary: String
+  description: String
+  values: [ValueInput!]
+  features: [SelectableInput!]
+  pricing: [SelectableInput!]
+  devices: [SelectableInput!]
+  categories: [SelectableInput!]
+  plans: [PlanInput!]
+  logo: AttachmentInput
+  featured: AttachmentInput
+  attachments: [AttachmentInput!]
 }
 
 type ProductType {
@@ -134,6 +138,7 @@ type ProductType {
   status: String!
   archived: Boolean!
   name: String!
+  slug: String!
   summary: String!
   description: String!
   values: [ValueType!]!
@@ -149,10 +154,11 @@ type ProductType {
 
 type Query {
   searchProducts(searchQueryInput: SearchQueryInput!): [ProductType!]!
-  getProductByName(productName: String!): ProductType!
-  products(filter: ProductFilter!): [ProductType!]!
-  getProductById(productId: String!): ProductType!
-  demoRequests(filter: DemoRequestFilter!): [DemoRequestType!]!
+  productByName(productName: String!): ProductType!
+  allProducts(filter: ProductFilter!): [ProductType!]!
+  productById(productId: String!): ProductType!
+  allDemoRequests(filter: DemoRequestFilter!): [DemoRequestType!]!
+  allVendors: [VendorType!]!
 }
 
 input SearchQueryInput {
@@ -160,8 +166,8 @@ input SearchQueryInput {
 }
 
 input SelectableInput {
-  label: String!
-  value: String!
+  label: String
+  value: String
 }
 
 type SelectableType {
@@ -170,17 +176,37 @@ type SelectableType {
   value: String!
 }
 
-type Subscription {
-  productUpdated(productId: String!): String!
-}
-
 input ValueInput {
-  name: String!
-  description: String!
+  name: String
+  description: String
 }
 
 type ValueType {
   _id: String!
   name: String
   description: String
+}
+
+input VendorInput {
+  name: String
+  contact: String
+  website: String
+  facebook: String
+  location: String
+  linkedIn: String
+  twitter: String
+  founded: String
+}
+
+type VendorType {
+  _id: ID!
+  userId: String!
+  name: String!
+  contact: String!
+  website: String!
+  facebook: String!
+  location: String!
+  linkedIn: String!
+  twitter: String!
+  founded: String!
 }

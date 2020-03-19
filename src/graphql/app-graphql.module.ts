@@ -5,13 +5,14 @@ import { verifyJWT } from '../utils/helpers';
 import { ProductsModule } from './products/products.module';
 import { DemoRequestsModule } from './demo-requests/demo-requests.module';
 import { ChatsModule } from './chats/chats.module';
+import { VendorsModule } from './vendors/vendors.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      autoSchemaFile: 'src/app-graphql/schema.gql',
+      autoSchemaFile: 'src/graphql/schema.gql',
       definitions: {
-        path: 'src/app-graphql/graphql.ts',
+        path: 'src/graphql/graphql.ts',
       },
       context: async ({ req, connection }) => {
         try {
@@ -31,7 +32,8 @@ import { ChatsModule } from './chats/chats.module';
     }),
     ProductsModule,
     DemoRequestsModule,
-    ChatsModule
+    ChatsModule,
+    VendorsModule
   ],
   providers: []
 })

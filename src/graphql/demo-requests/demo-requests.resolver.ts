@@ -1,8 +1,10 @@
-import { Resolver, Args, Query, Mutation } from '@nestjs/graphql';
+import { Resolver, Args, Query, Mutation, Context } from '@nestjs/graphql';
+import { UnauthorizedException } from '@nestjs/common';
 
 import { DemoRequestsService } from '../../shared/services/demo-requests.service';
 import { DemoRequestType } from './dto/demo-request.dto';
 import { DemoRequestFilter, DemoRequestInput } from './dto/demo-request.input';
+import { IUser } from '../../shared/interfaces/user.interface';
 
 @Resolver('DemoRequests')
 export class DemoRequestsResolver {
@@ -11,16 +13,21 @@ export class DemoRequestsResolver {
   ) {}
 
   @Query(() => [DemoRequestType])
-  async demoRequests(
+  async allDemoRequests(
+    @Context('user') user: IUser,
     @Args('filter') filter: DemoRequestFilter
   ): Promise<DemoRequestType[]> {
-    return this.demoRequestsService.findWithFilter(filter);
+    if (!user) {
+      throw new UnauthorizedException('unauthorized to retrieve demo requests');
+    }
+
+    return this.demoRequestsService.allDemoRequests(filter);
   }
 
   @Mutation(() => DemoRequestType)
-  async requestDemo(
+  async addDemoRequest(
     @Args('demo') demo: DemoRequestInput
   ): Promise<DemoRequestType> {
-    return this.demoRequestsService.requestDemo(demo);
+    return this.demoRequestsService.addDemoRequest(demo);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -11,11 +11,19 @@ export class DemoRequestsService {
     @InjectModel('DemoRequest') private readonly demoRequestModel: Model<IDemoRequest>
   ) {}
 
-  async findWithFilter(filter: object): Promise<IDemoRequest[]> {
-    return this.demoRequestModel.find(filter);
+  async allDemoRequests(filter: object): Promise<IDemoRequest[]> {
+    try {
+      return await this.demoRequestModel.find(filter);
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
-  async requestDemo(demo: DemoRequestInput): Promise<IDemoRequest> {
-    return this.demoRequestModel.create(demo);
+  async addDemoRequest(demo: DemoRequestInput): Promise<IDemoRequest> {
+    try {
+      return await this.demoRequestModel.create(demo);
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 }

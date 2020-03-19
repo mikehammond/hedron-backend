@@ -1,7 +1,6 @@
 import {
   Injectable,
   NotFoundException,
-  UnauthorizedException,
   InternalServerErrorException
 } from '@nestjs/common';
 import slugify from 'slugify';
@@ -21,27 +20,27 @@ export class ProductsService {
     @InjectModel('Product') private readonly productModel: Model<IProduct>
   ) {}
 
-  async products(filter: object): Promise<IProduct[]> {
+  async allProducts(filter: object): Promise<IProduct[]> {
     try {
       return await this.productModel.find(filter);
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
-  async getProductById(_id: string): Promise<IProduct> {
+  async productById(_id: string): Promise<IProduct> {
     try {
       return this.productModel.findById(_id);
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
-  async getProductByName(slug: string): Promise<IProduct> {
+  async productByName(slug: string): Promise<IProduct> {
     try {
       return this.productModel.findOne({ slug });
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -56,57 +55,29 @@ export class ProductsService {
         ibmDiscoveryDocumentId: response.result.document_id
       });
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
-  async archiveProduct(userId: string, _id: string): Promise<IProduct> {
+  async archiveProduct(_id: string): Promise<IProduct> {
     try {
-      const product = await this.productModel.findById(_id);
-
-      if (!product) {
-        throw new NotFoundException(`Product with id ${_id} Not Found`);
-      }
-
-      if (userId !== product.userId) {
-        throw new UnauthorizedException('You are not the owner of this product');
-      }
-
-      await product.update({ archived: true });
-
-      return await this.productModel.findById(_id);
+      return await this.productModel.findByIdAndUpdate(_id, { archived: true }, { new: true });
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
-  async restoreProduct(userId: string, _id: string): Promise<IProduct> {
+  async restoreProduct(_id: string): Promise<IProduct> {
     try {
-      const product = await this.productModel.findById(_id);
-
-      if (!product) {
-        throw new NotFoundException(`Product with id ${_id} Not Found`);
-      }
-
-      if (userId !== product.userId) {
-        throw new UnauthorizedException('You are not the owner of this product');
-      }
-
-      await product.update({ archived: false });
-
-      return await this.productModel.findById(_id);
+      return await this.productModel.findByIdAndUpdate(_id, { archived: false }, { new: true });
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
   async deleteProduct(_id: string): Promise<IProduct> {
     try {
       const product = await this.productModel.findById(_id);
-
-      if (!product) {
-        throw new NotFoundException(`Product with id ${_id} Not Found`);
-      }
 
       const fileKeys = [
         product.featured.filename,
@@ -121,23 +92,15 @@ export class ProductsService {
 
       return await product.remove();
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
-  async updateStatus(_id: string, status: string): Promise<IProduct> {
+  async updateProduct(_id: string, update: ProductInput): Promise<IProduct> {
     try {
-      const product = await this.productModel.findById(_id);
-
-      if (!product) {
-        throw new NotFoundException(`Product with id ${_id} Not Found`);
-      }
-
-      await product.update({ status }, { runValidators: true });
-
-      return await this.productModel.findById(_id);
+      return await this.productModel.findByIdAndUpdate(_id, update, { new: true });
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 }

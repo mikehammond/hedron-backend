@@ -159,7 +159,8 @@ type Query {
   productById(productId: String!): ProductType!
   allDemoRequests(filter: DemoRequestFilter!): [DemoRequestType!]!
   allVendors: [VendorType!]!
-  vendor: VendorType!
+  vendor: VendorType
+  vendorById(vendorId: String!): VendorType!
 }
 
 input SearchQueryInput {
@@ -210,4 +211,5 @@ type VendorType {
   linkedIn: String!
   twitter: String!
   founded: String!
+  status: String!
 }

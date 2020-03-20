@@ -10,4 +10,5 @@ export interface IVendor extends Document {
   linkedIn: string;
   twitter: string;
   founded: string;
+  status: string;
 }

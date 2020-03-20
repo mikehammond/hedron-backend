@@ -188,6 +188,7 @@ export interface IQuery {
     allDemoRequests(filter: DemoRequestFilter): DemoRequestType[] | Promise<DemoRequestType[]>;
     allVendors(): VendorType[] | Promise<VendorType[]>;
     vendor(): VendorType | Promise<VendorType>;
+    vendorById(vendorId: string): VendorType | Promise<VendorType>;
 }
 
 export interface SelectableType {
@@ -213,4 +214,5 @@ export interface VendorType {
     linkedIn: string;
     twitter: string;
     founded: string;
+    status: string;
 }

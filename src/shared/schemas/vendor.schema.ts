@@ -10,4 +10,5 @@ export const VendorSchema = new Schema({
   linkedIn: { type: Schema.Types.String, required: true, unique: true },
   twitter: { type: Schema.Types.String, required: true, unique: true },
   founded: { type: Schema.Types.String, required: true },
+  status: { type: Schema.Types.String, required: true, default: 'pending', enum: ['pending', 'approved', 'denied'] },
 });

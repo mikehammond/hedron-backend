@@ -34,6 +34,18 @@ export class VendorsResolver {
     return this.vendorsService.vendorByUserId(user.sub);
   }
 
+  @Query(() => VendorType)
+  vendorById(
+    @Context('user') user: IUser,
+    @Args('vendorId') vendorId: string,
+  ) {
+    if (!user || !user.permissions.includes('approve_changes:products')) {
+      throw new UnauthorizedException('unauthorized to retrieve all vendors');
+    }
+
+    return this.vendorsService.vendorById(vendorId);
+  }
+
   @Mutation(() => VendorType)
   addVendor(
     @Context('user') user: IUser,

@@ -2,33 +2,36 @@ import { ObjectType, Field, ID } from 'type-graphql';
 
 @ObjectType()
 export class VendorType {
-  @Field(type => ID, { nullable: true })
+  @Field(type => ID)
   readonly _id: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly userId: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly name: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly contact: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly website: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly facebook: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly location: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly linkedIn: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly twitter: string;
 
-  @Field({ nullable: true })
+  @Field()
   readonly founded: string;
+
+  @Field()
+  readonly status: string;
 }

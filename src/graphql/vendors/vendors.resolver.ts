@@ -16,7 +16,7 @@ export class VendorsResolver {
   allVendors(
     @Context('user') user: IUser,
   ) {
-    if (!user || !user.permissions.includes('approve_changes:products')) {
+    if (!user || !user.permissions.includes('read:vendors')) {
       throw new UnauthorizedException('unauthorized to retrieve all vendors');
     }
 
@@ -39,8 +39,8 @@ export class VendorsResolver {
     @Context('user') user: IUser,
     @Args('vendorId') vendorId: string,
   ) {
-    if (!user || !user.permissions.includes('approve_changes:products')) {
-      throw new UnauthorizedException('unauthorized to retrieve all vendors');
+    if (!user || !user.permissions.includes('read:vendors')) {
+      throw new UnauthorizedException('unauthorized to retrieve a vendor');
     }
 
     return this.vendorsService.vendorById(vendorId);
@@ -79,6 +79,19 @@ export class VendorsResolver {
     }
 
     return await this.vendorsService.updateVendor(vendorId, update);
+  }
+
+  @Mutation(() => VendorType)
+  approveVendor(
+    @Context('user') user: IUser,
+    @Args('vendorId') vendorId: string,
+    @Args('update') update: VendorInput
+  ) {
+    if (!user.permissions.includes('approve:vendors')) {
+      throw new UnauthorizedException('unauthorized to approve a vendor');
+    }
+
+    return this.vendorsService.updateVendor(vendorId, update);
   }
 
   @Mutation(() => VendorType)

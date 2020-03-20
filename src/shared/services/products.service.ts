@@ -98,7 +98,7 @@ export class ProductsService {
 
   async updateProduct(_id: string, update: ProductInput): Promise<IProduct> {
     try {
-      return await this.productModel.findByIdAndUpdate(_id, update, { new: true });
+      return await this.productModel.findByIdAndUpdate(_id, update, { new: true, runValidators: true });
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }

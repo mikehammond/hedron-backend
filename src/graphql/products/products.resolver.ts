@@ -125,7 +125,7 @@ export class ProductsResolver {
     @Context('user') user: IUser,
     @Args('productId') productId: string
   ): Promise<ProductType> {
-    if (!user || !user.permissions.includes('approve_changes:products')) {
+    if (!user || !user.permissions.includes('approve:products')) {
       throw new UnauthorizedException('You do not have the permission to delete a product');
     }
 
@@ -144,7 +144,7 @@ export class ProductsResolver {
     @Args('productId') productId: string,
     @Args('update') update: ProductInput
   ): Promise<ProductType> {
-    if (!user || !user.permissions.includes('approve_changes:products')) {
+    if (!user || !user.permissions.includes('approve:products')) {
       throw new UnauthorizedException('You do not have the permission to update product');
     }
 

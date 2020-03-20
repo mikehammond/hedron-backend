@@ -87,6 +87,7 @@ type Mutation {
   askQuestion(chat: ChatInput!): ChatType!
   addVendor(vendor: VendorInput!): VendorType!
   updateVendor(update: VendorInput!, vendorId: String!): VendorType!
+  approveVendor(update: VendorInput!, vendorId: String!): VendorType!
   deleteVendor(vendorId: String!): VendorType!
 }
 
@@ -198,6 +199,7 @@ input VendorInput {
   linkedIn: String
   twitter: String
   founded: String
+  status: String
 }
 
 type VendorType {

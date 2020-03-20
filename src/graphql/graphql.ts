@@ -88,6 +88,7 @@ export interface VendorInput {
     linkedIn?: string;
     twitter?: string;
     founded?: string;
+    status?: string;
 }
 
 export interface AttachmentType {
@@ -143,6 +144,7 @@ export interface IMutation {
     askQuestion(chat: ChatInput): ChatType | Promise<ChatType>;
     addVendor(vendor: VendorInput): VendorType | Promise<VendorType>;
     updateVendor(update: VendorInput, vendorId: string): VendorType | Promise<VendorType>;
+    approveVendor(update: VendorInput, vendorId: string): VendorType | Promise<VendorType>;
     deleteVendor(vendorId: string): VendorType | Promise<VendorType>;
 }
 

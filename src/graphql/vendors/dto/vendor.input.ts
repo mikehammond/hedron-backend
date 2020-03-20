@@ -25,4 +25,7 @@ export class VendorInput {
 
   @Field({ nullable: true })
   readonly founded: string;
+
+  @Field({ nullable: true })
+  readonly status: string;
 }

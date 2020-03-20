@@ -45,7 +45,7 @@ export class VendorsService {
 
   async updateVendor(_id: string, update: VendorInput): Promise<IVendor> {
     try {
-      return await this.vendorModel.findByIdAndUpdate(_id, update, { new: true });
+      return await this.vendorModel.findByIdAndUpdate(_id, update, { new: true, runValidators: true });
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }

@@ -19,7 +19,15 @@ export class VendorsService {
     }
   }
 
-  async vendor(_id: string): Promise<IVendor> {
+  async vendorByUserId(userId: string): Promise<IVendor> {
+    try {
+      return await this.vendorModel.findOne({ userId });
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  async vendorById(_id: string): Promise<IVendor> {
     try {
       return await this.vendorModel.findById(_id);
     } catch (error) {

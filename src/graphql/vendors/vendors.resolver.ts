@@ -23,6 +23,17 @@ export class VendorsResolver {
     return this.vendorsService.allVendors();
   }
 
+  @Query(() => VendorType)
+  vendor(
+    @Context('user') user: IUser,
+  ) {
+    if (!user) {
+      throw new UnauthorizedException('unauthorized to retrieve a vendor profile');
+    }
+
+    return this.vendorsService.vendorByUserId(user.sub);
+  }
+
   @Mutation(() => VendorType)
   addVendor(
     @Context('user') user: IUser,
@@ -45,7 +56,7 @@ export class VendorsResolver {
       throw new UnauthorizedException('unauthorized to update a vendor profile');
     }
 
-    const vendor = await this.vendorsService.vendor(vendorId);
+    const vendor = await this.vendorsService.vendorById(vendorId);
 
     if (!vendor) {
       throw new NotFoundException(`vendor with id ${vendorId} does not exists`);
@@ -67,7 +78,7 @@ export class VendorsResolver {
       throw new UnauthorizedException('unauthorized to delete a vendor profile');
     }
 
-    const vendor = await this.vendorsService.vendor(vendorId);
+    const vendor = await this.vendorsService.vendorById(vendorId);
 
     if (!vendor) {
       throw new NotFoundException(`vendor with id ${vendorId} does not exists`);

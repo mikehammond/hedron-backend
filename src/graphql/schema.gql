@@ -159,6 +159,7 @@ type Query {
   productById(productId: String!): ProductType!
   allDemoRequests(filter: DemoRequestFilter!): [DemoRequestType!]!
   allVendors: [VendorType!]!
+  vendor: VendorType!
 }
 
 input SearchQueryInput {

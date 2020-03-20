@@ -23,7 +23,7 @@ export class VendorsResolver {
     return this.vendorsService.allVendors();
   }
 
-  @Query(() => VendorType)
+  @Query(() => VendorType, { nullable: true })
   vendor(
     @Context('user') user: IUser,
   ) {

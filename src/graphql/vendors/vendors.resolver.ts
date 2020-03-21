@@ -1,12 +1,14 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
-import { UnauthorizedException, NotFoundException } from '@nestjs/common';
+import { UnauthorizedException, NotFoundException, UseFilters } from '@nestjs/common';
 
 import { VendorsService } from '../../shared/services/vendors.service';
 import { VendorType } from './dto/vendor.dto';
 import { VendorInput } from './dto/vendor.input';
 import { IUser } from '../../shared/interfaces/user.interface';
+import { GraphqlExceptionFilter } from '../../shared/filters/graphql-exception.filter';
 
 @Resolver('Vendors')
+@UseFilters(GraphqlExceptionFilter)
 export class VendorsResolver {
   constructor(
     private readonly vendorsService: VendorsService

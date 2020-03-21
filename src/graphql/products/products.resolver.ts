@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args, Context, Subscription } from '@nestjs/graphql';
-import { UnauthorizedException, NotFoundException } from '@nestjs/common';
+import { UnauthorizedException, NotFoundException, UseFilters } from '@nestjs/common';
 // import { PubSub } from 'graphql-subscriptions';
 
 import { ProductType } from './dto/product.dto';
@@ -7,10 +7,12 @@ import { ProductInput, ProductFilter, SearchQueryInput } from './dto/product.inp
 import { ProductsService } from '../../shared/services/products.service';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { WatsonDicoveryService } from '../../shared/services/watson-discovery.service';
+import { GraphqlExceptionFilter } from '../../shared/filters/graphql-exception.filter';
 
 // const pubSub = new PubSub();
 
 @Resolver('Products')
+@UseFilters(GraphqlExceptionFilter)
 export class ProductsResolver {
   constructor(
     private readonly productsService: ProductsService,

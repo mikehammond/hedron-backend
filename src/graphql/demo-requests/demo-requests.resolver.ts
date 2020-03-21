@@ -1,12 +1,14 @@
 import { Resolver, Args, Query, Mutation, Context } from '@nestjs/graphql';
-import { UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException, UseFilters } from '@nestjs/common';
 
 import { DemoRequestsService } from '../../shared/services/demo-requests.service';
 import { DemoRequestType } from './dto/demo-request.dto';
 import { DemoRequestFilter, DemoRequestInput } from './dto/demo-request.input';
 import { IUser } from '../../shared/interfaces/user.interface';
+import { GraphqlExceptionFilter } from '../../shared/filters/graphql-exception.filter';
 
 @Resolver('DemoRequests')
+@UseFilters(GraphqlExceptionFilter)
 export class DemoRequestsResolver {
   constructor(
     private readonly demoRequestsService: DemoRequestsService,

@@ -6,6 +6,7 @@ import { ProductsModule } from './products/products.module';
 import { DemoRequestsModule } from './demo-requests/demo-requests.module';
 import { ChatsModule } from './chats/chats.module';
 import { VendorsModule } from './vendors/vendors.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { VendorsModule } from './vendors/vendors.module';
     ProductsModule,
     DemoRequestsModule,
     ChatsModule,
-    VendorsModule
+    VendorsModule,
+    ReviewsModule
   ],
   providers: []
 })

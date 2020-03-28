@@ -23,19 +23,6 @@ const PlanSchema = new Schema({
   features: [SelectableSchema],
 });
 
-export const ReviewSchema = new Schema({
-  userId: { type: Schema.Types.String, required: true },
-  productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
-  review: { type: Schema.Types.String, required: true },
-});
-
-export const FAQSchema = new Schema({
-  userId: { type: Schema.Types.String, required: true },
-  productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
-  question: { type: Schema.Types.String, required: true },
-  answer: { type: Schema.Types.String, required: true },
-});
-
 export const ProductSchema = new Schema({
   userId: { type: Schema.Types.String, required: true },
   ibmDiscoveryDocumentId: { type: Schema.Types.String, required: true },

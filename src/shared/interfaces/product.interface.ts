@@ -1,5 +1,7 @@
 import { Document } from 'mongoose';
 
+import { IReview } from './review.interface';
+
 export interface IAttachment extends Document {
   filename: string;
   url: string;
@@ -40,5 +42,6 @@ export interface IProduct extends Document {
   plans: IPlan[];
   logo: IAttachment;
   featured: IAttachment;
-  attachments: IAttachment[]
+  attachments: IAttachment[];
+  reviews: IReview[];
 }

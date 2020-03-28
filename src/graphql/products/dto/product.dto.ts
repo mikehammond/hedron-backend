@@ -1,4 +1,6 @@
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+
+import { ReviewType } from '../../reviews/dto/review.dto';
 
 @ObjectType()
 class AttachmentType {
@@ -59,7 +61,7 @@ class ValueType {
 
 @ObjectType()
 export class ProductType {
-  @Field(type => ID, { nullable: true })
+  @Field(() => ID, { nullable: true })
   readonly _id: string;
 
   @Field({ nullable: true })
@@ -86,30 +88,33 @@ export class ProductType {
   @Field()
   readonly description: string;
 
-  @Field(type => [ValueType])
+  @Field(() => [ValueType])
   readonly values: ValueType[];
 
-  @Field(type => [SelectableType])
+  @Field(() => [SelectableType])
   readonly features: SelectableType[];
 
-  @Field(type => [SelectableType])
+  @Field(() => [SelectableType])
   readonly pricing: SelectableType[];
 
-  @Field(type => [SelectableType])
+  @Field(() => [SelectableType])
   readonly devices: SelectableType[];
 
-  @Field(type => [SelectableType])
+  @Field(() => [SelectableType])
   readonly categories: SelectableType[];
 
-  @Field(type => [PlanType])
+  @Field(() => [PlanType])
   readonly plans: PlanType[];
 
-  @Field(type => AttachmentType)
+  @Field(() => AttachmentType)
   readonly logo: AttachmentType;
 
-  @Field(type => AttachmentType)
+  @Field(() => AttachmentType)
   readonly featured: AttachmentType;
 
-  @Field(type => [AttachmentType])
+  @Field(() => [AttachmentType])
   readonly attachments: AttachmentType[];
+
+  @Field(() => [ReviewType])
+  readonly reviews: ReviewType[]
 }

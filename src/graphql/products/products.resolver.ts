@@ -1,23 +1,31 @@
-import { Resolver, Query, Mutation, Args, Context, Subscription } from '@nestjs/graphql';
-import { UnauthorizedException, NotFoundException, UseFilters } from '@nestjs/common';
+import { Resolver, Query, Mutation, Args, Context, Subscription, ResolveField, Parent } from '@nestjs/graphql';
+import { UnauthorizedException, NotFoundException } from '@nestjs/common';
 // import { PubSub } from 'graphql-subscriptions';
 
 import { ProductType } from './dto/product.dto';
+import { ReviewType } from '../reviews/dto/review.dto';
 import { ProductInput, ProductFilter, SearchQueryInput } from './dto/product.input';
 import { ProductsService } from '../../shared/services/products.service';
+import { ReviewsService } from '../../shared/services/reviews.service';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { WatsonDicoveryService } from '../../shared/services/watson-discovery.service';
-import { GraphqlExceptionFilter } from '../../shared/filters/graphql-exception.filter';
 
 // const pubSub = new PubSub();
 
-@Resolver('Products')
-@UseFilters(GraphqlExceptionFilter)
+@Resolver(() => ProductType)
 export class ProductsResolver {
   constructor(
     private readonly productsService: ProductsService,
+    private readonly reviewsService: ReviewsService,
     private readonly watsonDiscoveryService: WatsonDicoveryService
   ) {}
+
+  @ResolveField(() => ReviewType)
+  reviews(
+    @Parent() product: ProductType
+  ) {
+    return this.reviewsService.filterReviews({ productId: product._id });
+  }
 
   @Query(() => [ProductType])
   async searchProducts(

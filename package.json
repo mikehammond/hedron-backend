@@ -27,7 +27,7 @@
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/platform-express": "^7.0.6",
     "@nestjs/swagger": "^4.5.1",
-    "apollo-server-express": "^2.10.1",
+    "apollo-server-express": "^2.11.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.0-rc.0",
     "graphql": "^14.6.0",
